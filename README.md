@@ -95,6 +95,9 @@ make down
 ```
 <img width="1440" alt="스크린샷 2025-05-20 오후 11 17 43" src="https://github.com/user-attachments/assets/2e5b8345-3218-4cdc-9a32-7e3aafc388b1" />
 
+### 7. 도커 종료 방법은 오른쪽 상단 메뉴바에서 도커 이미지 -> 우클릭 -> Quit Docker Desktop을 누르시면 됩니다.
+<img width="294" alt="스크린샷 2025-05-20 오후 11 23 07" src="https://github.com/user-attachments/assets/52d01c96-8e32-4f5b-9284-192bc077597c" />
+
 ### 7. frontend 개발자 분들은 requirements/frontend/srcs 디렉토리에서, backend 개발자 분들은 requirements/backend/app 디렉토리에 본인의 코드를 구현하시면 됩니다.
 
 ## 웹사이트 소개 [추가 예정]
