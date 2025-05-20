@@ -73,8 +73,8 @@ make clean
 
 ### 3. Makefile을 실행하기 위해 먼저 make를 설치해줍니다. 리눅스 CLI 창을 연 뒤, 다음 명령을 수행하여 make를 설치합니다. (저는 이미 설치가 되어있어서 설치하는 사진을 구할수가 없네요... 이거 추가해주시면 감사하겠습니다...)
 ```
-sudo apt update
-sudo apt install -y make
+apt update
+apt install -y make
 ```
 ### 4. make 설치가 완료되면 git clone으로 원격 저장소를 로컬 환경에 복사합니다.
 ### 5. vscode로 해당 프로젝트 폴더를 열어주세요. (폴더를 vscode에 드래그 하면 해당 폴더를 기준으로 vscode가 열립니다.)
