@@ -10,7 +10,7 @@ function App() {
       setMessage(res.data.message);
     } catch (err) {
       console.error(err);
-      setMessage("API 호출 실패");ㄴ
+      setMessage("API 호출 실패");
     }
   };
 
