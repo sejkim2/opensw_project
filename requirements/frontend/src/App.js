@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import './App.css';
 
 function App() {
   const [message, setMessage] = useState("");
@@ -19,6 +20,12 @@ function App() {
       <h1>React ↔ Spring 연결 테스트</h1>
       <button onClick={fetchMessage}>Spring API 호출</button>
       <p>{message}</p>
+
+      <div className="container">
+        <h1>react 실행 테스트</h1>
+      </div>
+
+      
     </div>
   );
 }
