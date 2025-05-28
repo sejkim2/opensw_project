@@ -1,8 +1,11 @@
 # Step 1: React 앱 빌드
-FROM node:18-alpine as builder
+FROM node:18-alpine AS builder
 WORKDIR /app
-COPY ./srcs/ . 
-RUN npm install && npm run build
+COPY package.json package-lock.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
 
 # Step 2: Nginx로 정적 파일 서빙
 FROM nginx:alpine
