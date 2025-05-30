@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
-import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
+import './Home.css';
 
-function App() {
+function Home() {
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const fetchMessage = async () => {
     try {
@@ -23,11 +25,11 @@ function App() {
 
       <div className="container">
         <h1>react 실행 테스트</h1>
+        <button onClick={() => navigate("/test")}>테스트 페이지로 이동</button>
       </div>
-
-      
     </div>
   );
 }
 
-export default App;
+export default Home;
+
