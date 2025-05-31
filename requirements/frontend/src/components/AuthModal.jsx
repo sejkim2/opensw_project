@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import GenreCheckboxes from "./GenreCheckboxes";
+import GenreSelectDropdown from "./GenreSelectDropdown";
+
 
 function AuthModal({ isSignup, setIsSignup, setShowModal }) {
     const [formData, setFormData] = useState({
@@ -152,10 +153,10 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
                             value={formData.nickname}
                             onChange={handleInputChange}
                         />
-                        <GenreCheckboxes
+                        <GenreSelectDropdown
                             genres={genres}
                             selectedGenres={selectedGenres}
-                            handleGenreChange={handleGenreChange}
+                            setSelectedGenres={setSelectedGenres}
                         />
                     </>
                 )}
