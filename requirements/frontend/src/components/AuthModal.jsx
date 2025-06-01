@@ -47,7 +47,7 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
         );
     };
 
-    // ✅ 로그인 처리 함수
+    // 로그인 처리 함수
     const handleLogin = async () => {
         try {
             const res = await fetch("/api/users/signin", {
@@ -81,8 +81,22 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
     };
 
     const handleSignup = async () => {
-        if (formData.password !== formData.passwordConfirm) {
+        const { username, password, passwordConfirm, nickname } = formData;
+
+        console.log("회원가입 시 입력값 확인:", formData, selectedGenres);
+
+        if (!username.trim() || !password.trim() || !passwordConfirm.trim() || !nickname.trim()) {
+            alert("모든 항목을 입력해주세요.");
+            return;
+        }
+
+        if (password !== passwordConfirm) {
             alert("비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
+        if (selectedGenres.length === 0) {
+            alert("선호 장르를 하나 이상 선택해주세요.");
             return;
         }
 
@@ -91,9 +105,9 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    username: formData.username,
-                    password: formData.password,
-                    nickname: formData.nickname,
+                    username,
+                    password,
+                    nickname,
                     preferredGenres: selectedGenres,
                 }),
             });
@@ -118,6 +132,8 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
             console.error("회원가입 오류:", err);
         }
     };
+
+
 
     return (
         <div className="modal-overlay" onClick={() => setShowModal(false)}>
