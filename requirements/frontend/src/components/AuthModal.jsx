@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import GenreSelectDropdown from "./GenreSelectDropdown";
 
-
 function AuthModal({ isSignup, setIsSignup, setShowModal }) {
     const [formData, setFormData] = useState({
         username: "",
@@ -38,16 +37,6 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
         }));
     };
 
-    const handleGenreChange = (e) => {
-        const genreId = parseInt(e.target.value);
-        setSelectedGenres((prev) =>
-            e.target.checked
-                ? [...prev, genreId]
-                : prev.filter((id) => id !== genreId)
-        );
-    };
-
-    // 로그인 처리 함수
     const handleLogin = async () => {
         try {
             const res = await fetch("/api/users/signin", {
@@ -133,11 +122,9 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
         }
     };
 
-
-
     return (
-        <div className="modal-overlay" onClick={() => setShowModal(false)}>
-            <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-overlay">
+            <div className="modal">
                 <h2>{isSignup ? "회원가입" : "로그인"}</h2>
                 <input
                     type="text"
