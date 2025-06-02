@@ -156,11 +156,19 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
                             value={formData.nickname}
                             onChange={handleInputChange}
                         />
-                        <GenreSelectDropdown
-                            genres={genres}
-                            selectedGenres={selectedGenres}
-                            setSelectedGenres={setSelectedGenres}
-                        />
+
+                        <label style={{ fontWeight: "bold", display: "block", marginTop: "12px",left: 0 }}>
+                            🎯 선호 장르 선택
+                        </label>
+
+                        <div style={{ width: "100%", margin: "8px 0" }}>
+                            <GenreSelectDropdown
+                                genres={genres}
+                                selectedGenres={selectedGenres}
+                                setSelectedGenres={setSelectedGenres}
+                            />
+                        </div>
+
                     </>
                 )}
                 <div className="modal-buttons">

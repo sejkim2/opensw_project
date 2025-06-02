@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
-import axios from "axios";
 
+// ✅ 커스텀 체크박스 옵션
 const CheckboxOption = (props) => {
     const { data, isSelected, isFocused, innerRef, innerProps } = props;
 
@@ -39,24 +39,28 @@ const CheckboxOption = (props) => {
     );
 };
 
-
-// 스타일 설정
+// ✅ React Select 스타일
 const customStyles = {
     control: (provided) => ({
         ...provided,
-        borderRadius: "10px",
+        width: "100%",
+        padding: "2px",
+        height: "40px", // 높이 통일
+        borderRadius: "4px",
         borderColor: "#ccc",
         boxShadow: "none",
+        fontSize: "14px",
     }),
     option: (provided) => ({
         ...provided,
-        padding: 0,
+        padding: "8px 12px",
     }),
     menu: (provided) => ({
         ...provided,
-        borderRadius: "10px",
-        padding: "6px",
-        boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
+        borderRadius: "4px",
+        padding: "4px",
+        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.1)",
+        zIndex: 10,
     }),
     menuList: (provided) => ({
         ...provided,
@@ -68,60 +72,32 @@ const customStyles = {
     }),
 };
 
-function GenreSelectDropdown() {
-    const [genres, setGenres] = useState([]);
-    const [selectedGenres, setSelectedGenres] = useState([]);
 
-    // 장르 목록 및 사용자 선택값 불러오기
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const genreRes = await axios.get("/api/genres");
-                setGenres(genreRes.data);
 
-                const selectedRes = await axios.get("/api/user-genres");
-                setSelectedGenres(selectedRes.data.map((g) => g.id));
-            } catch (error) {
-                console.error("데이터 불러오기 오류:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
+function GenreSelectDropdown({ genres, selectedGenres, setSelectedGenres }) {
     const options = genres.map((genre) => ({
         value: genre.id,
         label: genre.name,
     }));
 
-    const handleChange = async (selectedOptions) => {
-        const ids = selectedOptions.map((opt) => opt.value);
+    const handleChange = (selectedOptions) => {
+        const ids = selectedOptions ? selectedOptions.map((opt) => opt.value) : [];
         setSelectedGenres(ids);
-
-        try {
-            await axios.post("/api/user-genres", { genreIds: ids });
-        } catch (error) {
-            console.error("서버 저장 실패:", error);
-        }
     };
 
     return (
-        <div style={{ textAlign: "center" }}>
-            <label style={{ fontWeight: "bold" }}>🎯 선호 장르 선택</label>
-            <div style={{ display: "inline-block", width: "300px" }}>
-                <Select
-                    isMulti
-                    options={options}
-                    closeMenuOnSelect={false}
-                    hideSelectedOptions={false}
-                    components={{ Option: CheckboxOption }}
-                    value={options.filter((o) => selectedGenres.includes(o.value))}
-                    onChange={handleChange}
-                    styles={customStyles}
-                    placeholder="장르를 선택하세요"
-                />
-            </div>
-        </div>
+        
+        <Select
+            isMulti
+            options={options}
+            closeMenuOnSelect={false}
+            hideSelectedOptions={false}
+            components={{ Option: CheckboxOption }}
+            value={options.filter((o) => selectedGenres.includes(o.value))}
+            onChange={handleChange}
+            styles={customStyles}
+            placeholder="선호 장르를 선택하세요"
+        />
     );
 }
 
