@@ -24,24 +24,28 @@ const MyPage = () => {
     const [genreEditing, setGenreEditing] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
 
-    const handleGenreSave = async () => {
-        try {
-            const res = await axios.put(`/api/users/${userId}/preferred-genres`, {
-                preferredGenres: selectedGenres,
-            });
+const handleGenreSave = async () => {
+    try {
+        const res = await axios.put(`/api/users/${userId}/preferred-genres`, {
+            preferredGenres: selectedGenres,
+        });
 
-            const genres = res.data.preferredGenres;
-            setPreferredGenreNames(genres);
-            setGenreEditing(false);
+        const genres = selectedGenres.map((id) => genreOptions[id - 1]);
+        setPreferredGenreNames(genres);
+        setGenreEditing(false);
 
-            const userFromStorage = JSON.parse(localStorage.getItem("user"));
-            const updatedUser = { ...userFromStorage, preferredGenres: selectedGenres };
-            localStorage.setItem("user", JSON.stringify(updatedUser));
-        } catch (error) {
-            console.error("장르 수정 실패:", error);
-            alert("선호 장르 수정에 실패했습니다.");
-        }
-    };
+        // ✅ localStorage에 사용자 ID별로 저장
+        const key = `preferredGenres_${userId}`;
+        localStorage.setItem(key, JSON.stringify(selectedGenres));
+
+        const userFromStorage = JSON.parse(localStorage.getItem("user"));
+        const updatedUser = { ...userFromStorage, preferredGenres: selectedGenres };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+    } catch (error) {
+        console.error("장르 수정 실패:", error);
+        alert("선호 장르 수정에 실패했습니다.");
+    }
+};
 
     useEffect(() => {
         const userFromStorage = JSON.parse(localStorage.getItem("user"));
