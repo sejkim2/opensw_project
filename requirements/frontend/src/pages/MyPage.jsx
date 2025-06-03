@@ -12,15 +12,18 @@ const MyPage = () => {
   const [editing, setEditing] = useState(false);
   const [newNickname, setNewNickname] = useState('');
   const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (user && user.nickname) {
-      setNickname(user.nickname);
-      setNewNickname(user.nickname);
-      setUserId(user.id);
-    }
-  }, []);
+useEffect(() => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (user && user.nickname) {
+    setUser(user);
+    setNickname(user.nickname);
+    setNewNickname(user.nickname);
+    setUserId(user.id);
+  }
+}, []);
+
 
   const handleSave = async () => {
     try {
@@ -51,7 +54,9 @@ const MyPage = () => {
 
       <div className="mypage-card">
         <div className="nickname-box">
-          <span className="nickname-text">{nickname || '닉네임'}</span>
+        <span className="nickname-text">
+            {user ? user.nickname : '닉네임'}
+        </span>
         </div>
 
         {!editing ? (
