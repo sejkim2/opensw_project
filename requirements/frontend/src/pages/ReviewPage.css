@@ -27,20 +27,92 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw; /* 더 정확한 뷰포트 기준 */
+    height: 100vh;
     background: rgba(0, 0, 0, 0.6);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center;     /* 수직 중앙 */
+    justify-content: center; /* 수평 중앙 */
     z-index: 999;
+    padding: 20px;           /* 모바일 대응 */
+    box-sizing: border-box;
 }
 
 .modal-review {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    animation: fadeInScale 0.3s ease-in-out;
+    box-sizing: border-box;
+}
+
+.modal-review h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+.modal-review input,
+.modal-review textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.modal-review textarea {
+    min-height: 100px;
+}
+
+.modal-review button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4e73df;
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.modal-review button:hover {
+    background-color: #3a5ecb;
+}
+
+.modal-review button:nth-child(2) {
+    background-color: #ccc;
+    color: #333;
+}
+
+.modal-review button:nth-child(2):hover {
+    background-color: #bbb;
+}
+
+.modal-review .button-group {
+    display: flex;
+    gap: 10px;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
