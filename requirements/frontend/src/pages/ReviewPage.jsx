@@ -3,16 +3,16 @@ import './ReviewPage.css';
 
 const ReviewPage = ({ userId: propUserId }) => {
     const [movies, setMovies] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [selectedMovieId, setSelectedMovieId] = useState("");
     const [content, setContent] = useState("");
     const [rating, setRating] = useState("");
     const [showModal, setShowModal] = useState(false);
 
-    // ✅ userId 설정: props → localStorage
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const userId = propUserId || storedUser?.id;
 
-    // ✅ 더미 영화 데이터
+    // 🎬 더미 영화 데이터
     useEffect(() => {
         const dummyMovies = [
             { id: 1, title: "인셉션" },
@@ -55,6 +55,9 @@ const ReviewPage = ({ userId: propUserId }) => {
                 setRating("");
                 setSelectedMovieId("");
                 setShowModal(false);
+
+                // ✅ 새 리뷰를 목록에 바로 추가
+                setReviews((prevReviews) => [...prevReviews, result]);
             } else if (res.status === 409) {
                 alert(`리뷰 등록 실패: ${result.message}`);
             } else {
@@ -64,6 +67,11 @@ const ReviewPage = ({ userId: propUserId }) => {
             console.error("리뷰 등록 중 오류:", err);
             alert("서버 오류로 리뷰 등록에 실패했습니다.");
         }
+    };
+
+    const getMovieTitleById = (id) => {
+        const movie = movies.find((m) => m.id === id);
+        return movie ? movie.title : `영화 ID ${id}`;
     };
 
     return (
@@ -101,7 +109,6 @@ const ReviewPage = ({ userId: propUserId }) => {
                             onChange={(e) => setContent(e.target.value)}
                         />
 
-                        {/* ✅ 0.5 단위 평점 선택 */}
                         <select
                             className="form-field"
                             value={rating}
@@ -125,6 +132,21 @@ const ReviewPage = ({ userId: propUserId }) => {
                     </div>
                 </div>
             )}
+
+            {/* ✅ 리뷰 목록 출력 */}
+            <div className="review-list">
+                <h3>📚 등록된 리뷰 목록</h3>
+                {reviews.length === 0 ? (
+                    <p>아직 등록된 리뷰가 없습니다.</p>
+                ) : (
+                    reviews.map((r) => (
+                        <div key={r.id} className="review-item">
+                            <strong>{getMovieTitleById(r.movieId)}</strong> - 평점: {r.rating}<br />
+                            <span>{r.content}</span>
+                        </div>
+                    ))
+                )}
+            </div>
         </div>
     );
 };
