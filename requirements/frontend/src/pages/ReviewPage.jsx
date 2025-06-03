@@ -12,7 +12,6 @@ const ReviewPage = ({ userId: propUserId }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const userId = propUserId || storedUser?.id;
 
-    // 🎬 더미 영화 데이터
     useEffect(() => {
         const dummyMovies = [
             { id: 1, title: "인셉션" },
@@ -35,8 +34,6 @@ const ReviewPage = ({ userId: propUserId }) => {
             rating: parseFloat(rating),
         };
 
-        console.log("📤 등록 요청 데이터:", review);
-
         try {
             const res = await fetch("/api/reviews", {
                 method: "POST",
@@ -47,7 +44,6 @@ const ReviewPage = ({ userId: propUserId }) => {
             });
 
             const result = await res.json();
-            console.log("📥 응답 상태코드:", res.status, "📥 응답 내용:", result);
 
             if (res.status === 201) {
                 alert("리뷰가 등록되었습니다!");
@@ -55,8 +51,6 @@ const ReviewPage = ({ userId: propUserId }) => {
                 setRating("");
                 setSelectedMovieId("");
                 setShowModal(false);
-
-                // ✅ 새 리뷰를 목록에 바로 추가
                 setReviews((prevReviews) => [...prevReviews, result]);
             } else if (res.status === 409) {
                 alert(`리뷰 등록 실패: ${result.message}`);
@@ -79,6 +73,25 @@ const ReviewPage = ({ userId: propUserId }) => {
             <h2>📝 영화 리뷰</h2>
             <p>보고 싶은 영화에 대한 리뷰를 작성해보세요.</p>
 
+            <div className="review-list">
+                {reviews.length === 0 ? (
+                    <p>아직 등록된 리뷰가 없습니다.</p>
+                ) : (
+                    reviews.map((r) => (
+                        <div key={r.id} className="review-item">
+                            <div className="review-header">
+                                <strong>{getMovieTitleById(r.movieId)}</strong>
+                                <span className="created-at">
+                                    🗓 {r.createdAt ? new Date(r.createdAt).toLocaleDateString("ko-KR") : "오늘"}
+                                </span>
+                            </div>
+                            <div className="rating">⭐ {r.rating}점</div>
+                            <div className="review-content">{r.content}</div>
+                        </div>
+                    ))
+                )}
+            </div>
+
             <button onClick={() => setShowModal(true)} className="open-form-btn">
                 ✍ 리뷰 작성하기
             </button>
@@ -94,12 +107,11 @@ const ReviewPage = ({ userId: propUserId }) => {
                             onChange={(e) => setSelectedMovieId(e.target.value)}
                         >
                             <option value="">영화를 선택하세요</option>
-                            {Array.isArray(movies) &&
-                                movies.map((movie) => (
-                                    <option key={movie.id} value={movie.id}>
-                                        {movie.title}
-                                    </option>
-                                ))}
+                            {movies.map((movie) => (
+                                <option key={movie.id} value={movie.id}>
+                                    {movie.title}
+                                </option>
+                            ))}
                         </select>
 
                         <textarea
@@ -132,21 +144,6 @@ const ReviewPage = ({ userId: propUserId }) => {
                     </div>
                 </div>
             )}
-
-            {/* ✅ 리뷰 목록 출력 */}
-            <div className="review-list">
-                <h3>📚 등록된 리뷰 목록</h3>
-                {reviews.length === 0 ? (
-                    <p>아직 등록된 리뷰가 없습니다.</p>
-                ) : (
-                    reviews.map((r) => (
-                        <div key={r.id} className="review-item">
-                            <strong>{getMovieTitleById(r.movieId)}</strong> - 평점: {r.rating}<br />
-                            <span>{r.content}</span>
-                        </div>
-                    ))
-                )}
-            </div>
         </div>
     );
 };
