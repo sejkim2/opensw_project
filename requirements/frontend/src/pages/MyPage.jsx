@@ -34,7 +34,6 @@ const handleGenreSave = async () => {
         setPreferredGenreNames(genres);
         setGenreEditing(false);
 
-        // ✅ localStorage에 사용자 ID별로 저장
         const key = `preferredGenres_${userId}`;
         localStorage.setItem(key, JSON.stringify(selectedGenres));
 
@@ -48,46 +47,33 @@ const handleGenreSave = async () => {
 };
 
     useEffect(() => {
-        const userFromStorage = JSON.parse(localStorage.getItem("user"));
-        if (userFromStorage && userFromStorage.nickname) {
-            setUser(userFromStorage);
-            setNickname(userFromStorage.nickname);
-            setNewNickname(userFromStorage.nickname);
-            setUserId(userFromStorage.id);
+    const userFromStorage = JSON.parse(localStorage.getItem("user"));
+    if (userFromStorage && userFromStorage.nickname) {
+        setUser(userFromStorage);
+        setNickname(userFromStorage.nickname);
+        setNewNickname(userFromStorage.nickname);
+        setUserId(userFromStorage.id);
 
-            axios
-                .get(`/api/users/${userFromStorage.id}`)
-                .then((res) => {
-                    const genreNums = res.data.preferredGenres;
-                    if (Array.isArray(genreNums)) {
-                        const genres = genreNums.map((num) => genreOptions[num - 1]);
-                        setPreferredGenreNames(genres);
-                        const selectedIds = genreNums.filter(num => typeof num === 'number');
-                        setSelectedGenres(selectedIds);
-                    }
-                })
-                .catch(() => {
-                    const key = `preferredGenres_${userFromStorage.id}`;
-                    const raw = localStorage.getItem(key);
-                    if (raw !== null && raw !== undefined && raw !== "undefined") {
-                        try {
-                            const storedGenres = JSON.parse(raw);
-                            if (Array.isArray(storedGenres)) {
-                                const genres = storedGenres.map((num) => genreOptions[num - 1]);
-                                setPreferredGenreNames(genres);
-                                setSelectedGenres(storedGenres);
-                            } else {
-                                console.warn("❗ localStorage에 저장된 장르가 배열이 아님:", storedGenres);
-                            }
-                        } catch (e) {
-                            console.error("📛 localStorage JSON parse 실패:", e);
-                        }
-                    } else {
-                        console.warn(`📛 localStorage에서 ${key} 데이터 없음 또는 undefined`);
-                    }
-                });
+        const key = `preferredGenres_${userFromStorage.id}`;
+        const raw = localStorage.getItem(key);
+        if (raw !== null && raw !== undefined && raw !== "undefined") {
+            try {
+                const storedGenres = JSON.parse(raw);
+                if (Array.isArray(storedGenres)) {
+                    const genres = storedGenres.map((num) => genreOptions[num - 1]);
+                    setPreferredGenreNames(genres);
+                    setSelectedGenres(storedGenres);
+                } else {
+                    console.warn("❗ localStorage에 저장된 장르가 배열이 아님:", storedGenres);
+                }
+            } catch (e) {
+                console.error("📛 localStorage JSON parse 실패:", e);
+            }
+        } else {
+            console.warn(`📛 localStorage에서 ${key} 데이터 없음 또는 undefined`);
         }
-    }, []);
+    }
+}, []);
 
     const handleSave = async () => {
         try {
