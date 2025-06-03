@@ -4,9 +4,6 @@ import Home from './pages/Home';
 import MainPage from './pages/MainPage';
 import ReviewPage from './pages/ReviewPage';
 import MyPage from './pages/MyPage';
-import ReviewPage from './pages/ReviewPage';
-import ReviewPage from './pages/ReviewPage';
-import MyPage from './pages/MyPage';
 
 function App() {
     return (
