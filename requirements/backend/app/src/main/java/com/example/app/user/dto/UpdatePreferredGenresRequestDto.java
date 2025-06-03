@@ -1,5 +1,5 @@
 // 파일 경로: src/main/java/com/example/app/user/dto/UpdatePreferredGenresRequestDto.java
-package com.example.app.user.dto;
+package main.java.com.example.app.user.dto;
 
 import java.util.List;
 
