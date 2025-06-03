@@ -1,5 +1,4 @@
-// 파일 경로: src/main/java/com/example/app/user/dto/UserResponseDto.java
-package main.java.com.example.app.user.dto;
+package com.example.app.user.dto;
 
 import java.util.List;
 
