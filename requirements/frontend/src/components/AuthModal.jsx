@@ -119,7 +119,7 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
             setSelectedGenres([]);
             setShowModal(false);
             localStorage.setItem("user", JSON.stringify(data));
-            localStorage.setItem("preferredGenres", JSON.stringify(selectedGenres));
+            localStorage.setItem(`preferredGenres_${data.id}`, JSON.stringify(selectedGenres));
 
         } catch (err) {
             alert(err.message);

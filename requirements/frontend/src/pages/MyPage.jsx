@@ -30,7 +30,6 @@ const MyPage = () => {
             setNewNickname(userFromStorage.nickname);
             setUserId(userFromStorage.id);
 
-            // 1. 서버에서 선호 장르 요청
             axios
                 .get(`/api/users/${userFromStorage.id}`)
                 .then((res) => {
@@ -41,13 +40,22 @@ const MyPage = () => {
                     }
                 })
                 .catch(() => {
-                    // 2. 실패 시 localStorage에서 대체
-                    const storedGenres = JSON.parse(localStorage.getItem("preferredGenres"));
-                    if (Array.isArray(storedGenres)) {
-                        const genres = storedGenres.map((num) => genreOptions[num - 1]);
-                        setPreferredGenreNames(genres);
+                    const key = `preferredGenres_${userFromStorage.id}`;
+                    const raw = localStorage.getItem(key);
+                    if (raw !== null && raw !== undefined && raw !== "undefined") {
+                        try {
+                            const storedGenres = JSON.parse(raw);
+                            if (Array.isArray(storedGenres)) {
+                                const genres = storedGenres.map((num) => genreOptions[num - 1]);
+                                setPreferredGenreNames(genres);
+                            } else {
+                                console.warn("❗ localStorage에 저장된 장르가 배열이 아님:", storedGenres);
+                            }
+                        } catch (e) {
+                            console.error("📛 localStorage JSON parse 실패:", e);
+                        }
                     } else {
-                        console.warn("선호 장르 정보를 불러오지 못했습니다.");
+                        console.warn(`📛 localStorage에서 ${key} 데이터 없음 또는 undefined`);
                     }
                 });
         }
@@ -115,7 +123,7 @@ const MyPage = () => {
                                 <input
                                     type="checkbox"
                                     value={genre}
-                                    checked={preferredGenreNames.includes(genre)}
+                                    checked={preferredGenreNames.map(String).includes(genre)}
                                     disabled
                                 />
                                 {genre}
