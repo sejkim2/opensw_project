@@ -2,12 +2,13 @@ package com.example.app.user;
 
 import com.example.app.genre.Genre;
 import com.example.app.genre.GenreRepository;
-import com.example.app.user.dto.UserSigninRequestDto;
-import com.example.app.user.dto.UserSigninResponseDto;
 import com.example.app.user.dto.UserSignupRequestDto;
 import com.example.app.user.dto.UserSignupResponseDto;
+import com.example.app.user.dto.UserSigninRequestDto;
+import com.example.app.user.dto.UserSigninResponseDto;
 import com.example.app.user.dto.UserResponseDto;
 import com.example.app.user.dto.UpdatePreferredGenresRequestDto;
+import com.example.app.user.dto.UserNicknameUpdateRequestDto;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -83,5 +84,18 @@ public class UserService {
                         .map(Genre::getName)
                         .collect(Collectors.toList())
         );
+    }
+
+    // 닉네임 수정 메서드
+    public User updateNickname(Long userId, UserNicknameUpdateRequestDto requestDto) {
+        // 사용자 조회
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        // 닉네임 수정
+        user.setNickname(requestDto.getNickname());
+
+        // 저장 및 반환
+        return userRepository.save(user);
     }
 }

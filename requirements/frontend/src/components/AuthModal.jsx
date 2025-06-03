@@ -54,6 +54,8 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
             }
 
             const user = await res.json();
+            localStorage.setItem("user", JSON.stringify(user));
+
             alert(`로그인 성공! 환영합니다, ${user.nickname}님`);
             setFormData({
                 username: "",
@@ -116,6 +118,9 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
             });
             setSelectedGenres([]);
             setShowModal(false);
+            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem(`preferredGenres_${data.id}`, JSON.stringify(selectedGenres));
+
         } catch (err) {
             alert(err.message);
             console.error("회원가입 오류:", err);
