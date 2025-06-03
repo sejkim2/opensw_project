@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './MyPage.css';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const handleLogout = () => {
     localStorage.removeItem("user");
@@ -19,6 +20,7 @@ const MyPage = () => {
     const [userId, setUserId] = useState(null);
     const [user, setUser] = useState(null);
     const [preferredGenreNames, setPreferredGenreNames] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const userFromStorage = JSON.parse(localStorage.getItem("user"));
@@ -72,7 +74,9 @@ const MyPage = () => {
     return (
         <div className="mypage-wrapper">
             <div className="mypage-header">
-                <div className="platform-title">리뷰보다</div>
+                <div className="platform-title" onClick={() => navigate("/main")} style={{ cursor: "pointer" }}>
+                    리뷰보다
+                </div>
                 <div className="logout-text" onClick={handleLogout} style={{ cursor: 'pointer' }}>
                     로그아웃
                 </div>
