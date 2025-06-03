@@ -73,8 +73,10 @@ const MyPage = () => {
             };
             localStorage.setItem("user", JSON.stringify(updatedUser));
             setNickname(response.data.nickname);
+            setUser(updatedUser);
             setEditing(false);
         } catch (error) {
+            console.error("닉네임 수정 오류:", error);
             alert("닉네임 수정에 실패했습니다.");
         }
     };
