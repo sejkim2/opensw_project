@@ -26,7 +26,8 @@ public class Movie {
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private Double averageRating;
+    @Column(nullable = false)
+    private Double averageRating = 0.0;
 
     @ManyToMany
     @JoinTable(
@@ -39,3 +40,4 @@ public class Movie {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 }
+
