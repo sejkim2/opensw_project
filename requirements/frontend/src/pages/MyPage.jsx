@@ -21,6 +21,27 @@ const MyPage = () => {
     const [user, setUser] = useState(null);
     const [preferredGenreNames, setPreferredGenreNames] = useState([]);
     const navigate = useNavigate();
+    const [genreEditing, setGenreEditing] = useState(false);
+    const [selectedGenres, setSelectedGenres] = useState([]);
+
+    const handleGenreSave = async () => {
+        try {
+            const res = await axios.put(`/api/users/${userId}/preferred-genres`, {
+                preferredGenres: selectedGenres,
+            });
+
+            const genres = res.data.preferredGenres;
+            setPreferredGenreNames(genres);
+            setGenreEditing(false);
+
+            const userFromStorage = JSON.parse(localStorage.getItem("user"));
+            const updatedUser = { ...userFromStorage, preferredGenres: selectedGenres };
+            localStorage.setItem("user", JSON.stringify(updatedUser));
+        } catch (error) {
+            console.error("장르 수정 실패:", error);
+            alert("선호 장르 수정에 실패했습니다.");
+        }
+    };
 
     useEffect(() => {
         const userFromStorage = JSON.parse(localStorage.getItem("user"));
@@ -37,6 +58,8 @@ const MyPage = () => {
                     if (Array.isArray(genreNums)) {
                         const genres = genreNums.map((num) => genreOptions[num - 1]);
                         setPreferredGenreNames(genres);
+                        const selectedIds = genreNums.filter(num => typeof num === 'number');
+                        setSelectedGenres(selectedIds);
                     }
                 })
                 .catch(() => {
@@ -48,6 +71,7 @@ const MyPage = () => {
                             if (Array.isArray(storedGenres)) {
                                 const genres = storedGenres.map((num) => genreOptions[num - 1]);
                                 setPreferredGenreNames(genres);
+                                setSelectedGenres(storedGenres);
                             } else {
                                 console.warn("❗ localStorage에 저장된 장르가 배열이 아님:", storedGenres);
                             }
@@ -117,7 +141,18 @@ const MyPage = () => {
                 <div className="genre-section">
                     <div className="genre-title-row">
                         <h3>선호하는 장르</h3>
-                        <button className="edit-button">선호하는 장르 수정</button>
+                        <button
+                            className="edit-button"
+                            onClick={() => {
+                                if (genreEditing) {
+                                    handleGenreSave();
+                                } else {
+                                    setGenreEditing(true);
+                                }
+                            }}
+                        >
+                            {genreEditing ? "저장" : "선호하는 장르 수정"}
+                        </button>
                     </div>
                     <div className="genre-checklist">
                         {genreOptions.map((genre) => (
@@ -125,8 +160,16 @@ const MyPage = () => {
                                 <input
                                     type="checkbox"
                                     value={genre}
-                                    checked={preferredGenreNames.map(String).includes(genre)}
-                                    disabled
+                                    checked={selectedGenres.includes(genreOptions.indexOf(genre) + 1)}
+                                    disabled={!genreEditing}
+                                    onChange={(e) => {
+                                        const id = genreOptions.indexOf(genre) + 1;
+                                        if (e.target.checked) {
+                                            setSelectedGenres(prev => [...prev, id]);
+                                        } else {
+                                            setSelectedGenres(prev => prev.filter(g => g !== id));
+                                        }
+                                    }}
                                 />
                                 {genre}
                             </label>
