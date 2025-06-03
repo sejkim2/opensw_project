@@ -1,34 +1,41 @@
 import React, { useEffect, useState } from "react";
 import './ReviewPage.css';
 
-const ReviewPage = ({ userId }) => {
+const ReviewPage = ({ userId: propUserId }) => {
     const [movies, setMovies] = useState([]);
     const [selectedMovieId, setSelectedMovieId] = useState("");
     const [content, setContent] = useState("");
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState("");
     const [showModal, setShowModal] = useState(false);
 
+    // ✅ userId 설정: props → localStorage
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const userId = propUserId || storedUser?.id;
+
+    // ✅ 더미 영화 데이터
     useEffect(() => {
-        // 백엔드 API가 없으므로 임시 하드코딩
-        setMovies([
-            { id: 1, title: "Interstellar" },
-            { id: 2, title: "Inception" },
-            { id: 3, title: "La La Land" },
-        ]);
+        const dummyMovies = [
+            { id: 1, title: "인셉션" },
+            { id: 2, title: "인터스텔라" },
+            { id: 3, title: "라라랜드" },
+        ];
+        setMovies(dummyMovies);
     }, []);
 
     const handleSubmit = async () => {
-        if (!selectedMovieId || !content || rating < 0 || rating > 5) {
+        if (!userId || !selectedMovieId || !content.trim() || rating === "") {
             alert("모든 정보를 정확히 입력하세요!");
             return;
         }
 
         const review = {
-            userId: userId,
+            userId: Number(userId),
             movieId: Number(selectedMovieId),
-            content: content,
+            content: content.trim(),
             rating: parseFloat(rating),
         };
+
+        console.log("📤 등록 요청 데이터:", review);
 
         try {
             const res = await fetch("/api/reviews", {
@@ -39,21 +46,23 @@ const ReviewPage = ({ userId }) => {
                 body: JSON.stringify(review),
             });
 
+            const result = await res.json();
+            console.log("📥 응답 상태코드:", res.status, "📥 응답 내용:", result);
+
             if (res.status === 201) {
                 alert("리뷰가 등록되었습니다!");
                 setContent("");
-                setRating(0);
+                setRating("");
                 setSelectedMovieId("");
                 setShowModal(false);
             } else if (res.status === 409) {
-                const error = await res.json();
-                alert(`리뷰 등록 실패: ${error.message}`);
+                alert(`리뷰 등록 실패: ${result.message}`);
             } else {
-                const error = await res.json();
-                alert(`리뷰 등록 실패: ${error.message}`);
+                alert(`리뷰 등록 실패: ${result.message}`);
             }
         } catch (err) {
             console.error("리뷰 등록 중 오류:", err);
+            alert("서버 오류로 리뷰 등록에 실패했습니다.");
         }
     };
 
@@ -71,33 +80,43 @@ const ReviewPage = ({ userId }) => {
                     <div className="modal-review" onClick={(e) => e.stopPropagation()}>
                         <h3>✍ 리뷰 작성</h3>
 
-                        <select className="form-field"
+                        <select
+                            className="form-field"
                             value={selectedMovieId}
                             onChange={(e) => setSelectedMovieId(e.target.value)}
                         >
                             <option value="">영화를 선택하세요</option>
-                            {movies.map((movie) => (
-                                <option key={movie.id} value={movie.id}>
-                                    {movie.title}
-                                </option>
-                            ))}
+                            {Array.isArray(movies) &&
+                                movies.map((movie) => (
+                                    <option key={movie.id} value={movie.id}>
+                                        {movie.title}
+                                    </option>
+                                ))}
                         </select>
 
-                        <textarea className="form-field"
+                        <textarea
+                            className="form-field"
                             placeholder="리뷰 내용을 입력하세요"
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                         />
 
-                        <input className="form-field"
-                            type="number"
-                            placeholder="평점 (0.0 ~ 5.0)"
+                        {/* ✅ 0.5 단위 평점 선택 */}
+                        <select
+                            className="form-field"
                             value={rating}
                             onChange={(e) => setRating(e.target.value)}
-                            step="0.1"
-                            min="0"
-                            max="5"
-                        />
+                        >
+                            <option value="">평점을 선택하세요</option>
+                            {[...Array(11)].map((_, i) => {
+                                const value = (i * 0.5).toFixed(1);
+                                return (
+                                    <option key={value} value={value}>
+                                        {value}
+                                    </option>
+                                );
+                            })}
+                        </select>
 
                         <div className="button-group">
                             <button onClick={handleSubmit} className="submit-btn">등록</button>
