@@ -46,7 +46,7 @@
   background-color: rgba(255, 255, 255, 0.06);
   padding: 40px;
   border-radius: 16px;
-  width: 350px;
+  width: 500px;
   text-align: center;
   color: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
@@ -97,11 +97,6 @@
   margin-top: 10px;
 }
 
-.edit-genre {
-  font-weight: normal;
-  color: #ffcc70;
-}
-
 .logout-text:hover {
   text-decoration: underline;
 }
@@ -148,4 +143,51 @@ h5 {
 h5:hover {
   text-decoration: underline;
   cursor: pointer;
+}
+
+.genre-section {
+  margin-top: 30px;
+  color: white;
+}
+
+.genre-checklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin-top: 10px;
+}
+
+.genre-item {
+  width: calc(20% - 20px); 
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+}
+
+.genre-item input[type="checkbox"] {
+  margin-right: 6px;
+}
+
+.genre-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.genre-title-row h3 {
+  margin: 0;
+  color: white;
+}
+
+.edit-button {
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  background-color:aquamarine;
+  border: none;
+  border-radius: 4px;
+  color: rgb(96, 96, 96);
+  cursor: pointer;
+  font-weight: bold;
 }

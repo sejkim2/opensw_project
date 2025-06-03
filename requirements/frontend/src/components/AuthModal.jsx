@@ -118,6 +118,9 @@ function AuthModal({ isSignup, setIsSignup, setShowModal }) {
             });
             setSelectedGenres([]);
             setShowModal(false);
+            localStorage.setItem("user", JSON.stringify(data));
+            localStorage.setItem("preferredGenres", JSON.stringify(selectedGenres));
+
         } catch (err) {
             alert(err.message);
             console.error("회원가입 오류:", err);
