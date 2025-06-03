@@ -1,0 +1,46 @@
+.review-container {
+    text-align: center;
+    margin-top: 80px;
+    color: white;
+}
+
+.dummy-review {
+    margin-top: 30px;
+    padding: 20px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    text-align: left;
+}
+
+.dummy-review h3 {
+    margin-bottom: 5px;
+}
+
+.dummy-review p {
+    margin-bottom: 20px;
+}
+
+.modal-overlay-review {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal-review {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}

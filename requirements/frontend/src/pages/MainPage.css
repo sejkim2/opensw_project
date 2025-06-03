@@ -1,3 +1,10 @@
+.main-container {
+    height: 100vh;
+    background: linear-gradient(135deg, #141e30, #243b55);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .navbar {
     display: flex;
     justify-content: space-between;
