@@ -101,3 +101,111 @@
   font-weight: normal;
   color: #ffcc70;
 }
+
+.mypage-header {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.platform-title {
+  flex: 1;
+  font-size: 40px;
+  text-align: center;
+  padding-bottom: 15px;
+  border-bottom: 2px solid #ffcc70;
+  margin: 0;
+}
+
+.logout-text {
+  position: absolute;
+  top: 13px;
+  right: 40px;
+  font-size: 1rem;
+  color: #fe4141;
+}
+
+.mypage-container {
+  text-align: center;
+  margin-top: 80px;
+  color: white;
+}
+
+.mypage-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+}
+
+.mypage-card {
+  background-color: rgba(255, 255, 255, 0.06);
+  padding: 40px;
+  border-radius: 16px;
+  width: 350px;
+  text-align: center;
+  color: white;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.mypage-card h5 {
+  margin-top: 8px; 
+  margin-bottom: 0;
+  color:aquamarine;
+  font-weight: bold;
+}
+
+.mypage-card h3 { 
+  color: white;
+  font-weight: bold;
+  text-align: left;
+}
+
+.nickname-box {
+  padding: 8px 16px;
+  background-color: #c6c6c6;
+  border-radius: 10px;   
+  display: inline-block;     
+}
+
+.nickname-text {
+  font-size: 1rem;
+  color: #4b4b4b; 
+  font-weight: bold;
+}
+
+.mypage-card .nickname-line {
+  border-bottom: 1px solid #ffffff;
+  margin: 10px 0;
+}
+
+.genre-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.genre-row h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+.edit-genre {
+  font-weight: normal;
+  color: #ffcc70;
+}
+
+.logout-text:hover {
+  text-decoration: underline;
+}
