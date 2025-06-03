@@ -67,11 +67,11 @@ const ReviewPage = ({ userId }) => {
             </button>
 
             {showModal && (
-                <div className="modal-overlay" onClick={() => setShowModal(false)}>
-                    <div className="modal" onClick={(e) => e.stopPropagation()}>
+                <div className="modal-overlay-review" onClick={() => setShowModal(false)}>
+                    <div className="modal-review" onClick={(e) => e.stopPropagation()}>
                         <h3>✍ 리뷰 작성</h3>
 
-                        <select
+                        <select className="form-field"
                             value={selectedMovieId}
                             onChange={(e) => setSelectedMovieId(e.target.value)}
                         >
@@ -83,13 +83,13 @@ const ReviewPage = ({ userId }) => {
                             ))}
                         </select>
 
-                        <textarea
+                        <textarea className="form-field"
                             placeholder="리뷰 내용을 입력하세요"
                             value={content}
                             onChange={(e) => setContent(e.target.value)}
                         />
 
-                        <input
+                        <input className="form-field"
                             type="number"
                             placeholder="평점 (0.0 ~ 5.0)"
                             value={rating}
@@ -99,9 +99,9 @@ const ReviewPage = ({ userId }) => {
                             max="5"
                         />
 
-                        <div style={{ display: 'flex', gap: '10px' }}>
-                            <button onClick={handleSubmit}>등록</button>
-                            <button onClick={() => setShowModal(false)}>취소</button>
+                        <div className="button-group">
+                            <button onClick={handleSubmit} className="submit-btn">등록</button>
+                            <button onClick={() => setShowModal(false)} className="cancel-btn">취소</button>
                         </div>
                     </div>
                 </div>

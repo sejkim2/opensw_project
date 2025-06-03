@@ -1,108 +1,3 @@
-.review-container {
-    text-align: center;
-    margin-top: 80px;
-    color: white;
-}
-
-.dummy-review {
-    margin-top: 30px;
-    padding: 20px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    text-align: left;
-}
-
-.dummy-review h3 {
-    margin-bottom: 5px;
-}
-
-.dummy-review p {
-    margin-bottom: 20px;
-}
-
-.modal-review {
-    background: #ffffff;
-    padding: 30px 25px;
-    border-radius: 16px;
-    width: 90%;
-    max-width: 480px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    animation: fadeInScale 0.3s ease-in-out;
-}
-
-.modal-review h3 {
-    margin: 0;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-}
-
-.modal-review input,
-.modal-review textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    resize: none;
-    box-sizing: border-box;
-}
-
-.modal-review textarea {
-    min-height: 100px;
-}
-
-.modal-review button {
-    flex: 1;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    background-color: #4e73df;
-    color: white;
-    font-weight: bold;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-.modal-review button:hover {
-    background-color: #3a5ecb;
-}
-
-.modal-review button:nth-child(2) {
-    background-color: #ccc;
-    color: #333;
-}
-
-.modal-review button:nth-child(2):hover {
-    background-color: #bbb;
-}
-
-/* 등록/취소 버튼 박스 */
-.modal-review .button-group {
-    display: flex;
-    gap: 10px;
-}
-
-/* 모달 애니메이션 */
-@keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.9);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
 .modal-overlay-review {
     position: fixed;
     top: 0;
@@ -111,24 +6,108 @@
     height: 100vh;
     background: rgba(0, 0, 0, 0.6);
     display: flex;
-    align-items: center;     /* 수직 중앙 */
-    justify-content: center; /* 수평 중앙 */
+    align-items: center;
+    justify-content: center;
     z-index: 999;
-    padding: 20px; /* 모바일에서 좌우 여백 */
+    padding: 20px;
     box-sizing: border-box;
 }
 
-.modal-review {
-    background: #ffffff;
-    padding: 30px 25px;
-    border-radius: 16px;
-    width: 100%;
-    max-width: 480px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+.review-container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    animation: fadeInScale 0.3s ease-in-out;
+    align-items: center;      /* 수평 가운데 정렬 */
+    justify-content: flex-start; /* 상단 정렬 */
+    padding-top: 100px;       /* 위쪽 여백 */
+    min-height: 100vh;        /* 전체 화면 기준 높이 */
+    text-align: center;
+    color: white;
     box-sizing: border-box;
 }
 
+
+
+.modal-review {
+    background: #fdfdfd;
+    padding: 32px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    animation: fadeInScale 0.3s ease-in-out;
+}
+
+.modal-review h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #222;
+    text-align: center;
+}
+
+.form-field {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #fff;
+    color: #333;
+    box-sizing: border-box;
+}
+
+textarea.form-field {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+}
+
+.submit-btn {
+    flex: 1;
+    padding: 12px;
+    background-color: #4e73df;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.submit-btn:hover {
+    background-color: #3a5ecb;
+}
+
+.cancel-btn {
+    flex: 1;
+    padding: 12px;
+    background-color: #e0e0e0;
+    color: #333;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cancel-btn:hover {
+    background-color: #cfcfcf;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
