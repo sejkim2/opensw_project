@@ -1,5 +1,5 @@
 // 파일 경로: src/main/java/com/example/app/user/dto/UserResponseDto.java
-package com.example.app.user.dto;
+package main.java.com.example.app.user.dto;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ public class UserResponseDto {
     private List<String> preferredGenres;
 
     public UserResponseDto() {}
+
 
     public UserResponseDto(Long id, String username, String nickname, List<String> preferredGenres) {
         this.id = id;
