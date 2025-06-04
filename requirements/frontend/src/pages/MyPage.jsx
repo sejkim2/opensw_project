@@ -21,45 +21,59 @@ const MyPage = () => {
     const [user, setUser] = useState(null);
     const [preferredGenreNames, setPreferredGenreNames] = useState([]);
     const navigate = useNavigate();
+    const [genreEditing, setGenreEditing] = useState(false);
+    const [selectedGenres, setSelectedGenres] = useState([]);
+
+const handleGenreSave = async () => {
+    try {
+        const res = await axios.put(`/api/users/${userId}/preferred-genres`, {
+            preferredGenres: selectedGenres,
+        });
+
+        const genres = selectedGenres.map((id) => genreOptions[id - 1]);
+        setPreferredGenreNames(genres);
+        setGenreEditing(false);
+
+        const key = `preferredGenres_${userId}`;
+        localStorage.setItem(key, JSON.stringify(selectedGenres));
+
+        const userFromStorage = JSON.parse(localStorage.getItem("user"));
+        const updatedUser = { ...userFromStorage, preferredGenres: selectedGenres };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+    } catch (error) {
+        console.error("장르 수정 실패:", error);
+        alert("선호 장르 수정에 실패했습니다.");
+    }
+};
 
     useEffect(() => {
-        const userFromStorage = JSON.parse(localStorage.getItem("user"));
-        if (userFromStorage && userFromStorage.nickname) {
-            setUser(userFromStorage);
-            setNickname(userFromStorage.nickname);
-            setNewNickname(userFromStorage.nickname);
-            setUserId(userFromStorage.id);
+    const userFromStorage = JSON.parse(localStorage.getItem("user"));
+    if (userFromStorage && userFromStorage.nickname) {
+        setUser(userFromStorage);
+        setNickname(userFromStorage.nickname);
+        setNewNickname(userFromStorage.nickname);
+        setUserId(userFromStorage.id);
 
-            axios
-                .get(`/api/users/${userFromStorage.id}`)
-                .then((res) => {
-                    const genreNums = res.data.preferredGenres;
-                    if (Array.isArray(genreNums)) {
-                        const genres = genreNums.map((num) => genreOptions[num - 1]);
-                        setPreferredGenreNames(genres);
-                    }
-                })
-                .catch(() => {
-                    const key = `preferredGenres_${userFromStorage.id}`;
-                    const raw = localStorage.getItem(key);
-                    if (raw !== null && raw !== undefined && raw !== "undefined") {
-                        try {
-                            const storedGenres = JSON.parse(raw);
-                            if (Array.isArray(storedGenres)) {
-                                const genres = storedGenres.map((num) => genreOptions[num - 1]);
-                                setPreferredGenreNames(genres);
-                            } else {
-                                console.warn("❗ localStorage에 저장된 장르가 배열이 아님:", storedGenres);
-                            }
-                        } catch (e) {
-                            console.error("📛 localStorage JSON parse 실패:", e);
-                        }
-                    } else {
-                        console.warn(`📛 localStorage에서 ${key} 데이터 없음 또는 undefined`);
-                    }
-                });
+        const key = `preferredGenres_${userFromStorage.id}`;
+        const raw = localStorage.getItem(key);
+        if (raw !== null && raw !== undefined && raw !== "undefined") {
+            try {
+                const storedGenres = JSON.parse(raw);
+                if (Array.isArray(storedGenres)) {
+                    const genres = storedGenres.map((num) => genreOptions[num - 1]);
+                    setPreferredGenreNames(genres);
+                    setSelectedGenres(storedGenres);
+                } else {
+                    console.warn("❗ localStorage에 저장된 장르가 배열이 아님:", storedGenres);
+                }
+            } catch (e) {
+                console.error("📛 localStorage JSON parse 실패:", e);
+            }
+        } else {
+            console.warn(`📛 localStorage에서 ${key} 데이터 없음 또는 undefined`);
         }
-    }, []);
+    }
+}, []);
 
     const handleSave = async () => {
         try {
@@ -73,8 +87,10 @@ const MyPage = () => {
             };
             localStorage.setItem("user", JSON.stringify(updatedUser));
             setNickname(response.data.nickname);
+            setUser(updatedUser);
             setEditing(false);
         } catch (error) {
+            console.error("닉네임 수정 오류:", error);
             alert("닉네임 수정에 실패했습니다.");
         }
     };
@@ -115,7 +131,18 @@ const MyPage = () => {
                 <div className="genre-section">
                     <div className="genre-title-row">
                         <h3>선호하는 장르</h3>
-                        <button className="edit-button">선호하는 장르 수정</button>
+                        <button
+                            className="edit-button"
+                            onClick={() => {
+                                if (genreEditing) {
+                                    handleGenreSave();
+                                } else {
+                                    setGenreEditing(true);
+                                }
+                            }}
+                        >
+                            {genreEditing ? "저장" : "선호하는 장르 수정"}
+                        </button>
                     </div>
                     <div className="genre-checklist">
                         {genreOptions.map((genre) => (
@@ -123,8 +150,16 @@ const MyPage = () => {
                                 <input
                                     type="checkbox"
                                     value={genre}
-                                    checked={preferredGenreNames.map(String).includes(genre)}
-                                    disabled
+                                    checked={selectedGenres.includes(genreOptions.indexOf(genre) + 1)}
+                                    disabled={!genreEditing}
+                                    onChange={(e) => {
+                                        const id = genreOptions.indexOf(genre) + 1;
+                                        if (e.target.checked) {
+                                            setSelectedGenres(prev => [...prev, id]);
+                                        } else {
+                                            setSelectedGenres(prev => prev.filter(g => g !== id));
+                                        }
+                                    }}
                                 />
                                 {genre}
                             </label>
