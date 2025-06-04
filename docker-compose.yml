@@ -6,6 +6,8 @@ services:
       - "80:80"
     depends_on:
       - backend
+    volumes:
+      - ./requirements/images:/usr/share/nginx/images
     networks:
       - opensw_network
 
@@ -24,6 +26,8 @@ services:
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       TZ: Asia/Seoul
+    volumes:
+      - ./requirements/images:/app/images
     networks:
       - opensw_network
   
