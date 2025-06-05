@@ -1,7 +1,5 @@
 package com.example.app.review;
 
-import com.example.app.review.Review;
-import com.example.app.review.ReviewRepository;
 import com.example.app.review.dto.ReviewRequestDto;
 import com.example.app.review.dto.ReviewResponseDto;
 import com.example.app.user.User;
@@ -12,6 +10,10 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -66,4 +68,18 @@ public class ReviewService {
                 .createdAt(saved.getCreatedAt())
                 .build();
     }
+
+    // ✅ 사용자별 최신 리뷰 3개 조회 메서드
+    @Transactional(readOnly = true)
+    public List<ReviewResponseDto> getRecentReviewsByUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다"));
+
+        return reviewRepository.findByUser(user).stream()
+                .sorted(Comparator.comparing(Review::getCreatedAt).reversed())
+                .limit(3)
+                .map(ReviewResponseDto::fromEntity)
+                .collect(Collectors.toList());
+    }
 }
+
