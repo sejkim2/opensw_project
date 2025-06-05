@@ -180,7 +180,7 @@ const handleGenreSave = async () => {
 
                 <div className="review-section">
                     <div className="review-title-row">
-                        <h3>작성한 리뷰 목록 <span style={{ color: 'aquamarine' }}>{recentReviews.length}</span></h3>
+                        <h3>최신 작성한 리뷰 목록 <span style={{ color: 'aquamarine' }}>{recentReviews.length}</span></h3>
                     </div>
 
                     {recentReviews.length === 0 ? (
