@@ -30,7 +30,7 @@ const handleGenreSave = async () => {
         alert("선호하는 장르는 최소 1개 이상 선택해야 합니다.");
         return;
     }
-    
+
     try {
         const res = await axios.put(`/api/users/${userId}/preferred-genres`, {
             preferredGenres: selectedGenres,
@@ -60,7 +60,7 @@ const handleGenreSave = async () => {
         setNewNickname(userFromStorage.nickname);
         setUserId(userFromStorage.id);
 
-        axios.get(`/api/users/${userFromStorage.id}/reviews/recent`)
+        axios.get(`/api/reviews/users/${userFromStorage.id}/recent`)
             .then(res => setRecentReviews(res.data))
             .catch(err => console.error("리뷰 3개 불러오기 실패:", err));
 
