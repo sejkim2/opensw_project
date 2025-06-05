@@ -25,6 +25,11 @@ const MyPage = () => {
     const [selectedGenres, setSelectedGenres] = useState([]);
 
 const handleGenreSave = async () => {
+    if (selectedGenres.length === 0) {
+        alert("선호하는 장르는 최소 1개 이상 선택해야 합니다.");
+        return;
+    }
+    
     try {
         const res = await axios.put(`/api/users/${userId}/preferred-genres`, {
             preferredGenres: selectedGenres,
