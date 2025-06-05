@@ -30,6 +30,7 @@ const ReviewPage = ({ userId: propUserId }) => {
             const res = await fetch(`/api/reviews/users/${uid}`);
             if (res.ok) {
                 const data = await res.json();
+                console.log("📥 리뷰 조회 성공:", data);
                 setReviews(data);
             } else {
                 console.warn("리뷰 불러오기 실패");
@@ -52,6 +53,8 @@ const ReviewPage = ({ userId: propUserId }) => {
             rating: parseFloat(rating),
         };
 
+        console.log("📤 리뷰 전송 데이터:", review);
+
         try {
             const res = await fetch("/api/reviews", {
                 method: "POST",
@@ -62,6 +65,7 @@ const ReviewPage = ({ userId: propUserId }) => {
             });
 
             const result = await res.json();
+            console.log("📥 서버 응답 데이터:", result);
 
             if (res.status === 201) {
                 alert("리뷰가 등록되었습니다!");
@@ -69,7 +73,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                 setRating("");
                 setSelectedMovieId("");
                 setShowModal(false);
-                fetchReviews(userId); // 등록 후 서버에서 다시 불러옴
+                fetchReviews(userId); 
             } else if (res.status === 409) {
                 alert(`리뷰 등록 실패: ${result.message}`);
             } else {
