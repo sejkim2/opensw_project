@@ -109,7 +109,7 @@ const handleGenreSave = async () => {
         <div className="mypage-wrapper">
             <div className="mypage-header">
                 <div className="platform-title" onClick={() => navigate("/main")} style={{ cursor: "pointer" }}>
-                    리뷰보다
+                    🎬 리뷰보다
                 </div>
                 <div className="logout-text" onClick={handleLogout} style={{ cursor: 'pointer' }}>
                     로그아웃
@@ -180,7 +180,7 @@ const handleGenreSave = async () => {
 
                 <div className="review-section">
                     <div className="review-title-row">
-                        <h3>작성한 리뷰 목록 <span style={{ color: 'aquamarine' }}>{recentReviews.length}</span></h3>
+                        <h3>최신 작성한 리뷰 목록 <span style={{ color: 'aquamarine' }}>{recentReviews.length}</span></h3>
                     </div>
 
                     {recentReviews.length === 0 ? (

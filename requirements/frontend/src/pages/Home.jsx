@@ -9,7 +9,7 @@ function Home() {
   return (
     <div className="home-container">
       <div className="container">
-        <h1>🎬 영화 리뷰 플랫폼</h1>
+        <h1>🎬 리뷰보다</h1>
         <p>당신이 사랑한 장면을 다시 느껴보세요</p>
         <button
           onClick={() => {
@@ -17,7 +17,7 @@ function Home() {
             setIsSignup(false);
           }}
         >
-          영화 보러 가기 🎥
+          영화 리뷰 보러 가기 🎥
         </button>
       </div>
 
