@@ -78,7 +78,6 @@ public class ReviewService {
     }
 
 
-    // ✅ 사용자별 최신 리뷰 3개 조회 메서드
     @Transactional(readOnly = true)
     public List<ReviewResponseDto> getRecentReviewsByUser(Long userId) {
         User user = userRepository.findById(userId)
@@ -88,6 +87,8 @@ public class ReviewService {
                 .sorted(Comparator.comparing(Review::getCreatedAt).reversed())
                 .limit(3)
                 .map(ReviewResponseDto::fromEntity)
+                .collect(Collectors.toList());  // 🔥 이 줄이 누락됐을 가능성 높음!
+    }
 
     public List<UserReviewDto> getReviewsByUserId(Long userId) {
         if (!userRepository.existsById(userId)) {
