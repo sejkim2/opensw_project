@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +36,15 @@ public class ReviewController {
         }
     }
 
+    /**
+     * 사용자별 최신 리뷰 3개 조회
+     */
+    @GetMapping("/users/{userId}/recent")
+    public ResponseEntity<List<ReviewResponseDto>> getRecentReviewsByUser(@PathVariable Long userId) {
+        List<ReviewResponseDto> response = reviewService.getRecentReviewsByUser(userId);
+        return ResponseEntity.ok(response);
+    }
+
     private static ErrorResponse error(int status, String error, String message) {
         return new ErrorResponse(status, error, message, "/api/reviews");
     }
@@ -48,3 +58,4 @@ public class ReviewController {
     record ErrorResponse(int status, String error, String message, String path) {
     }
 }
+

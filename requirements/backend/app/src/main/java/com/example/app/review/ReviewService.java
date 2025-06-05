@@ -19,6 +19,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -73,6 +77,18 @@ public class ReviewService {
                 .build();
     }
 
+
+    // ✅ 사용자별 최신 리뷰 3개 조회 메서드
+    @Transactional(readOnly = true)
+    public List<ReviewResponseDto> getRecentReviewsByUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("사용자를 찾을 수 없습니다"));
+
+        return reviewRepository.findByUser(user).stream()
+                .sorted(Comparator.comparing(Review::getCreatedAt).reversed())
+                .limit(3)
+                .map(ReviewResponseDto::fromEntity)
+
     public List<UserReviewDto> getReviewsByUserId(Long userId) {
         if (!userRepository.existsById(userId)) {
             throw new ResponseStatusException(NOT_FOUND, "User not found");
@@ -84,3 +100,4 @@ public class ReviewService {
                 .collect(Collectors.toList());
     }
 }
+
