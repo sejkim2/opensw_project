@@ -24,7 +24,7 @@ const DetailPage = () => {
     <div className="main-container">
       <nav className="navbar">
         <h2 className="logo" onClick={() => navigate('/main')} style={{ cursor: 'pointer' }}>
-            🎬 리뷰보다
+          🎬 리뷰보다
         </h2>
         <ul className="menu">
           <li onClick={() => navigate('/review')}>리뷰 쓰기</li>
@@ -36,7 +36,7 @@ const DetailPage = () => {
       <div className="detail-container">
         <img className="detail-image" src={movie.imageUrl} alt={movie.title} />
         <div className="detail-info">
-          <h1>{movie.title}</h1>
+          <h1> {movie.title} </h1>
           <p className="detail-description">{movie.description}</p>
           <p><strong>장르:</strong> {movie.genres.join(', ')}</p>
           <p><strong>평균 평점:</strong> ⭐ {movie.averageRating}</p>
@@ -44,15 +44,16 @@ const DetailPage = () => {
       </div>
 
       <div className="review-section">
-        <h2>리뷰</h2>
+        <h2>작성된 리뷰</h2>
         {movie.reviews.length === 0 ? (
           <p>아직 등록된 리뷰가 없습니다.</p>
         ) : (
           movie.reviews.map(review => (
             <div key={review.id} className="review-card">
-              <p className="review-user">👤 {review.username}</p>
-              <p className="review-content">{review.content}</p>
-              <p className="review-rating">⭐ {review.rating}</p>
+              <p className="review-header">
+                👤 {review.username} 님, <span className="review-rating">⭐ {review.rating} 점!!</span>
+              </p>
+              <p className="review-content"> <string> &gt;&gt; </string>{review.content}</p>
             </div>
           ))
         )}
