@@ -19,7 +19,25 @@ const ReviewPage = ({ userId: propUserId }) => {
             { id: 3, title: "라라랜드" },
         ];
         setMovies(dummyMovies);
-    }, []);
+
+        if (userId) {
+            fetchReviews(userId);
+        }
+    }, [userId]);
+
+    const fetchReviews = async (uid) => {
+        try {
+            const res = await fetch(`/api/reviews/users/${uid}`);
+            if (res.ok) {
+                const data = await res.json();
+                setReviews(data);
+            } else {
+                console.warn("리뷰 불러오기 실패");
+            }
+        } catch (err) {
+            console.error("리뷰 로딩 중 오류:", err);
+        }
+    };
 
     const handleSubmit = async () => {
         if (!userId || !selectedMovieId || !content.trim() || rating === "") {
@@ -51,7 +69,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                 setRating("");
                 setSelectedMovieId("");
                 setShowModal(false);
-                setReviews((prevReviews) => [...prevReviews, result]);
+                fetchReviews(userId); // 등록 후 서버에서 다시 불러옴
             } else if (res.status === 409) {
                 alert(`리뷰 등록 실패: ${result.message}`);
             } else {
@@ -61,11 +79,6 @@ const ReviewPage = ({ userId: propUserId }) => {
             console.error("리뷰 등록 중 오류:", err);
             alert("서버 오류로 리뷰 등록에 실패했습니다.");
         }
-    };
-
-    const getMovieTitleById = (id) => {
-        const movie = movies.find((m) => m.id === id);
-        return movie ? movie.title : `영화 ID ${id}`;
     };
 
     return (
@@ -80,7 +93,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                     reviews.map((r) => (
                         <div key={r.id} className="review-item">
                             <div className="review-header">
-                                <strong>{getMovieTitleById(r.movieId)}</strong>
+                                <strong>{r.movieTitle}</strong>
                                 <span className="created-at">
                                     🗓 {r.createdAt ? new Date(r.createdAt).toLocaleDateString("ko-KR") : "오늘"}
                                 </span>
