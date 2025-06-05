@@ -66,3 +66,10 @@
   font-size: 1.5rem;
   color: white;
 }
+
+.main-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
