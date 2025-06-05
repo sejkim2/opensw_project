@@ -23,7 +23,9 @@ const DetailPage = () => {
   return (
     <div className="main-container">
       <nav className="navbar">
-        <h2 className="logo">🎬 리뷰플랫폼</h2>
+        <h2 className="logo" onClick={() => navigate('/main')} style={{ cursor: 'pointer' }}>
+            🎬 리뷰보다
+        </h2>
         <ul className="menu">
           <li onClick={() => navigate('/review')}>리뷰 쓰기</li>
           <li onClick={() => navigate('/mypage')}>마이페이지</li>
