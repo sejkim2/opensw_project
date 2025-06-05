@@ -25,7 +25,12 @@ const MainPage = () => {
     }, [userId]);
 
     const renderMovieCard = (movie) => (
-        <div key={movie.id} className="movie-card">
+        <div
+            key={movie.id}
+            className="movie-card"
+            onClick={() => navigate(`/detail/${movie.id}`)}
+            style={{ cursor: "pointer" }}
+        >
             <img
                 src={movie.imageUrl}
                 alt={movie.title}
@@ -38,6 +43,7 @@ const MainPage = () => {
             </div>
         </div>
     );
+
 
     return (
         <div className="main-container">

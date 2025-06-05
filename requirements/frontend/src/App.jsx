@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import MainPage from './pages/MainPage';
 import ReviewPage from './pages/ReviewPage';
 import MyPage from './pages/MyPage';
+import DetailPage from './pages/DetailPage';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                     <Route path="/main" element={<MainPage />} />
                     <Route path="/review" element={<ReviewPage />} />
                     <Route path="/MyPage" element={<MyPage />} />
+                    <Route path="/detail/:movieId" element={<DetailPage />} />
                 </Routes>
             </div>
         </BrowserRouter>
