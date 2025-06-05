@@ -23,6 +23,7 @@ const MyPage = () => {
     const navigate = useNavigate();
     const [genreEditing, setGenreEditing] = useState(false);
     const [selectedGenres, setSelectedGenres] = useState([]);
+    const [recentReviews, setRecentReviews] = useState([]);
 
 const handleGenreSave = async () => {
     if (selectedGenres.length === 0) {
@@ -58,6 +59,10 @@ const handleGenreSave = async () => {
         setNickname(userFromStorage.nickname);
         setNewNickname(userFromStorage.nickname);
         setUserId(userFromStorage.id);
+
+        axios.get(`/api/users/${userFromStorage.id}/reviews/recent`)
+            .then(res => setRecentReviews(res.data))
+            .catch(err => console.error("리뷰 3개 불러오기 실패:", err));
 
         const key = `preferredGenres_${userFromStorage.id}`;
         const raw = localStorage.getItem(key);
@@ -173,7 +178,30 @@ const handleGenreSave = async () => {
                     </div>
                 </div>
 
-                <div><h3> 작성한 리뷰 목록 </h3></div>
+                <div className="review-section">
+                    <div className="review-title-row">
+                        <h3>작성한 리뷰 목록 <span style={{ color: 'aquamarine' }}>{recentReviews.length}</span></h3>
+                    </div>
+
+                    {recentReviews.length === 0 ? (
+                        <p style={{ color: '#ccc'}}>
+                            작성한 리뷰가 없습니다.
+                        </p>
+                    ) : (
+                        recentReviews.map((review) => (
+                            <div key={review.reviewId} className="review-summary">
+                                <div className="review-date">
+                                    {new Date(review.createdAt).toLocaleDateString()}
+                                </div>
+                                <div className="review-content-preview">
+                                    {review.content.length > 50
+                                        ? review.content.slice(0, 50) + '...'
+                                        : review.content}
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
             </div>
         </div>
     );
