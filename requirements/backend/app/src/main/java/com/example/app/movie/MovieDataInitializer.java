@@ -25,46 +25,52 @@ public class MovieDataInitializer {
         Genre drama = findByName(allGenres, "Drama");
         Genre romance = findByName(allGenres, "Romance");
         Genre sciFi = findByName(allGenres, "Science Fiction");
+        Genre horror = findByName(allGenres, "Horror");
+        Genre fantasy = findByName(allGenres, "Fantasy");
+        Genre comedy = findByName(allGenres, "Comedy");
+        Genre animation = findByName(allGenres, "Animation");
+        Genre thriller = findByName(allGenres, "Thriller");
+        Genre other = findByName(allGenres, "Other");
 
         List<Movie> movies = Arrays.asList(
                 Movie.builder()
-                        .title("Inception")
+                        .title("극한직업")
                         .description("A mind-bending sci-fi thriller by Christopher Nolan.")
                         .imageUrl("/images/movie1.jpeg") 
                         .averageRating(0.0)
-                        .genres(new HashSet<>(List.of(action, sciFi)))
+                        .genres(new HashSet<>(List.of(comedy)))
                         .build(),
 
                 Movie.builder()
-                        .title("La La Land")
+                        .title("내안의 그놈")
                         .description("A heartfelt musical romance drama.")
                         .imageUrl("/images/movie2.jpeg")
                         .averageRating(0.0)
-                        .genres(new HashSet<>(List.of(romance, drama)))
+                        .genres(new HashSet<>(List.of(other)))
                         .build(),
 
                 Movie.builder()
-                        .title("Interstellar")
+                        .title("태극기 휘날리며")
                         .description("An epic journey through space and time.")
                         .imageUrl("/images/movie3.jpeg")
                         .averageRating(0.0)
-                        .genres(new HashSet<>(List.of(drama, sciFi)))
+                        .genres(new HashSet<>(List.of(other)))
                         .build(),
 
                 Movie.builder()
-                        .title("Avengers")
+                        .title("수상한 그녀")
                         .description("A team of heroes saving the world.")
                         .imageUrl("/images/movie4.jpeg")
                         .averageRating(0.0)
-                        .genres(new HashSet<>(List.of(action, sciFi)))
+                        .genres(new HashSet<>(List.of(drama, comedy)))
                         .build(),
 
                 Movie.builder()
-                        .title("Titanic")
+                        .title("범죄도시1")
                         .description("A tragic romance on the ill-fated ship.")
                         .imageUrl("/images/movie5.jpeg")
                         .averageRating(0.0)
-                        .genres(new HashSet<>(List.of(romance, drama)))
+                        .genres(new HashSet<>(List.of(thriller, comedy)))
                         .build()
         );
 
