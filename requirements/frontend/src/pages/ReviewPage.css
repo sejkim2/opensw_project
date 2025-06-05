@@ -197,3 +197,11 @@ textarea.form-field {
     z-index: 1000;
     margin-bottom: 20px;
 }
+
+.review-page-content {
+    color: #222;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    margin-top: 8px;
+}

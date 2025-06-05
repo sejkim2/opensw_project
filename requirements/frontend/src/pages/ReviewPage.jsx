@@ -109,7 +109,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                                 </span>
                             </div>
                             <div className="rating">⭐ {r.rating}점</div>
-                            <div className="review-content">{r.content}</div>
+                            <div className="review-page-content">{r.content}</div>
                         </div>
                     ))
                 )}
