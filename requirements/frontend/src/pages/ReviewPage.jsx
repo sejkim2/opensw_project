@@ -13,13 +13,37 @@ const ReviewPage = ({ userId: propUserId }) => {
     const userId = propUserId || storedUser?.id;
 
     useEffect(() => {
-        const dummyMovies = [
-            { id: 1, title: "인셉션" },
-            { id: 2, title: "인터스텔라" },
-            { id: 3, title: "라라랜드" },
-        ];
-        setMovies(dummyMovies);
-    }, []);
+        if (userId) {
+            // 선호 장르 기반 영화 목록 불러오기
+            fetch(`/api/movies/recommended/${userId}`)
+                .then(res => res.json())
+                .then(data => {
+                    setMovies(data);
+                    console.log("🎬 추천 영화 목록:", data);
+                })
+                .catch(err => {
+                    console.error("추천 영화 목록 로딩 실패:", err);
+                });
+
+            // 기존 리뷰 불러오기
+            fetchReviews(userId);
+        }
+    }, [userId]);
+
+    const fetchReviews = async (uid) => {
+        try {
+            const res = await fetch(`/api/reviews/users/${uid}`);
+            if (res.ok) {
+                const data = await res.json();
+                console.log("📥 리뷰 조회 성공:", data);
+                setReviews(data);
+            } else {
+                console.warn("리뷰 불러오기 실패");
+            }
+        } catch (err) {
+            console.error("리뷰 로딩 중 오류:", err);
+        }
+    };
 
     const handleSubmit = async () => {
         if (!userId || !selectedMovieId || !content.trim() || rating === "") {
@@ -34,6 +58,8 @@ const ReviewPage = ({ userId: propUserId }) => {
             rating: parseFloat(rating),
         };
 
+        console.log("📤 리뷰 전송 데이터:", review);
+
         try {
             const res = await fetch("/api/reviews", {
                 method: "POST",
@@ -44,6 +70,7 @@ const ReviewPage = ({ userId: propUserId }) => {
             });
 
             const result = await res.json();
+            console.log("📥 서버 응답 데이터:", result);
 
             if (res.status === 201) {
                 alert("리뷰가 등록되었습니다!");
@@ -51,9 +78,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                 setRating("");
                 setSelectedMovieId("");
                 setShowModal(false);
-                setReviews((prevReviews) => [...prevReviews, result]);
-            } else if (res.status === 409) {
-                alert(`리뷰 등록 실패: ${result.message}`);
+                fetchReviews(userId); 
             } else {
                 alert(`리뷰 등록 실패: ${result.message}`);
             }
@@ -63,15 +88,10 @@ const ReviewPage = ({ userId: propUserId }) => {
         }
     };
 
-    const getMovieTitleById = (id) => {
-        const movie = movies.find((m) => m.id === id);
-        return movie ? movie.title : `영화 ID ${id}`;
-    };
-
     return (
         <div className="review-container">
             <h2>📝 영화 리뷰</h2>
-            <p>보고 싶은 영화에 대한 리뷰를 작성해보세요.</p>
+            <p>선호 장르 기반 추천 영화에 대한 리뷰를 작성해보세요.</p>
 
             <div className="review-list">
                 {reviews.length === 0 ? (
@@ -80,7 +100,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                     reviews.map((r) => (
                         <div key={r.id} className="review-item">
                             <div className="review-header">
-                                <strong>{getMovieTitleById(r.movieId)}</strong>
+                                <strong>{r.movieTitle}</strong>
                                 <span className="created-at">
                                     🗓 {r.createdAt ? new Date(r.createdAt).toLocaleDateString("ko-KR") : "오늘"}
                                 </span>
