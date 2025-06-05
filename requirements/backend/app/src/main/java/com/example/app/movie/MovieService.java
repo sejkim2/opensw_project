@@ -71,14 +71,20 @@ public class MovieService {
 
         Set<Genre> preferredGenres = user.getPreferredGenres();
         if (preferredGenres == null || preferredGenres.isEmpty()) {
-            throw new EntityNotFoundException("User has no preferred genres");
+                throw new EntityNotFoundException("User has no preferred genres");
         }
 
         List<Movie> movies = movieRepository.findByGenresIn(preferredGenres);
 
         return movies.stream()
-                .map(MovieSummaryResponseDto::fromEntity)
-                .collect(Collectors.toList());
-    }
+                        .map(MovieSummaryResponseDto::fromEntity)
+                        .collect(Collectors.toList());
+}
+
+public List<MovieSummaryResponseDto> getAllMovies() {
+        return movieRepository.findAll().stream()
+                        .map(MovieSummaryResponseDto::fromEntity)
+                        .collect(Collectors.toList());
+}
 
 }

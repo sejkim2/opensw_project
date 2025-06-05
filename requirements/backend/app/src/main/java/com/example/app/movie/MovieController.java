@@ -56,4 +56,8 @@ public class MovieController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<List<MovieSummaryResponseDto>> getAllMovies() {
+        return ResponseEntity.ok(movieService.getAllMovies());
+    }
 }
