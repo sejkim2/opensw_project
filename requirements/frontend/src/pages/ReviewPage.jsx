@@ -13,14 +13,19 @@ const ReviewPage = ({ userId: propUserId }) => {
     const userId = propUserId || storedUser?.id;
 
     useEffect(() => {
-        const dummyMovies = [
-            { id: 1, title: "인셉션" },
-            { id: 2, title: "인터스텔라" },
-            { id: 3, title: "라라랜드" },
-        ];
-        setMovies(dummyMovies);
-
         if (userId) {
+            // 선호 장르 기반 영화 목록 불러오기
+            fetch(`/api/movies/recommended/${userId}`)
+                .then(res => res.json())
+                .then(data => {
+                    setMovies(data);
+                    console.log("🎬 추천 영화 목록:", data);
+                })
+                .catch(err => {
+                    console.error("추천 영화 목록 로딩 실패:", err);
+                });
+
+            // 기존 리뷰 불러오기
             fetchReviews(userId);
         }
     }, [userId]);
@@ -74,8 +79,6 @@ const ReviewPage = ({ userId: propUserId }) => {
                 setSelectedMovieId("");
                 setShowModal(false);
                 fetchReviews(userId); 
-            } else if (res.status === 409) {
-                alert(`리뷰 등록 실패: ${result.message}`);
             } else {
                 alert(`리뷰 등록 실패: ${result.message}`);
             }
@@ -88,7 +91,7 @@ const ReviewPage = ({ userId: propUserId }) => {
     return (
         <div className="review-container">
             <h2>📝 영화 리뷰</h2>
-            <p>보고 싶은 영화에 대한 리뷰를 작성해보세요.</p>
+            <p>선호 장르 기반 추천 영화에 대한 리뷰를 작성해보세요.</p>
 
             <div className="review-list">
                 {reviews.length === 0 ? (
