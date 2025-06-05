@@ -1,33 +1,4 @@
-.mypage-header {
-  position: absolute;
-  top: 0px;
-  left: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-}
 
-.platform-title {
-  flex: 1;
-  font-size: 40px;
-  text-align: center;
-  padding-top: 35px; 
-  padding-bottom: 40px;
-  margin: 0;
-  background-color:#141e30; 
-}
-
-.logout-text {
-  position: absolute;
-  top: 50px;
-  right: 40px;
-  font-size: 1rem;
-  color: #fe4141;
-}
 
 .mypage-container {
   text-align: center;

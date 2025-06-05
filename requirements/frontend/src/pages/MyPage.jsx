@@ -107,14 +107,25 @@ const handleGenreSave = async () => {
 
     return (
         <div className="mypage-wrapper">
-            <div className="mypage-header">
-                <div className="platform-title" onClick={() => navigate("/main")} style={{ cursor: "pointer" }}>
-                    🎬 리뷰보다
-                </div>
-                <div className="logout-text" onClick={handleLogout} style={{ cursor: 'pointer' }}>
-                    로그아웃
-                </div>
-            </div>
+<nav className="navbar">
+        <h2 className="logo" onClick={() => navigate('/main')} style={{ cursor: 'pointer' }}>
+            🎬 리뷰보다
+        </h2>
+        <ul className="menu">
+            <li onClick={() => navigate('/review')}>리뷰 쓰기</li>
+            <li onClick={() => navigate('/mypage')}>마이페이지</li>
+            <li onClick={handleLogout}>로그아웃</li>
+        </ul>
+    </nav><nav className="navbar">
+        <h2 className="logo" onClick={() => navigate('/main')} style={{ cursor: 'pointer' }}>
+            🎬 리뷰보다
+        </h2>
+        <ul className="menu">
+            <li onClick={() => navigate('/review')}>리뷰 쓰기</li>
+            <li onClick={() => navigate('/mypage')}>마이페이지</li>
+            <li onClick={handleLogout}>로그아웃</li>
+        </ul>
+    </nav>
 
             <div className="mypage-card">
                 <div className="nickname-box">
