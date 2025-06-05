@@ -2,24 +2,33 @@ package com.example.app.movie;
 
 import com.example.app.genre.Genre;
 import com.example.app.movie.dto.MovieDetailResponseDto;
+
+import com.example.app.movie.dto.PopularMovieResponseDto;
+
 import com.example.app.movie.dto.MovieSummaryResponseDto;
+
 import com.example.app.review.dto.ReviewSummaryDto;
 import com.example.app.user.User;
 import com.example.app.user.UserRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 import java.util.Set;
+
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class MovieService {
 
+  
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;
 
@@ -43,6 +52,19 @@ public class MovieService {
                 .build();
     }
 
+        public List<PopularMovieResponseDto> getPopularMovies(int limit) {
+                List<Movie> movies = movieRepository.findTopPopularMovies(PageRequest.of(0, limit));
+                return movies.stream().map(movie -> PopularMovieResponseDto.builder()
+                                .id(movie.getId())
+                                .title(movie.getTitle())
+                                .averageRating(movie.getAverageRating())
+                                .imageUrl(movie.getImageUrl())
+                                .genres(movie.getGenres().stream().map(g -> g.getName()).toList())
+                                .build())
+                                .toList();
+        }
+    
+
     public List<MovieSummaryResponseDto> getRecommendedMovies(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new EntityNotFoundException("User not found"));
@@ -58,4 +80,5 @@ public class MovieService {
                 .map(MovieSummaryResponseDto::fromEntity)
                 .collect(Collectors.toList());
     }
+
 }

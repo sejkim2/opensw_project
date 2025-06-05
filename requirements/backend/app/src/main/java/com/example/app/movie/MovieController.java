@@ -1,6 +1,7 @@
 package com.example.app.movie;
 
 import com.example.app.movie.dto.MovieDetailResponseDto;
+import com.example.app.movie.dto.PopularMovieResponseDto;
 import com.example.app.movie.dto.MovieSummaryResponseDto;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -29,12 +30,17 @@ public class MovieController {
                             "status", 404,
                             "error", "Not Found",
                             "message", "Movie not found",
-                            "path", "/api/movies/" + movieId
-                    )
-            );
+                            "path", "/api/movies/" + movieId));
         }
     }
 
+    @GetMapping("/popular")
+    public ResponseEntity<List<PopularMovieResponseDto>> getPopularMovies(
+            @RequestParam(defaultValue = "10") int limit) {
+        List<PopularMovieResponseDto> response = movieService.getPopularMovies(limit);
+        return ResponseEntity.ok(response);
+    }
+  
     @GetMapping("/recommended/{userId}")
     public ResponseEntity<?> getRecommendedMovies(@PathVariable Long userId) {
         try {
