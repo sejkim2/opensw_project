@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import './ReviewPage.css';
 
 const ReviewPage = ({ userId: propUserId }) => {
-    const [genres, setGenres] = useState([]);
     const [movies, setMovies] = useState([]);
-    const [selectedGenreId, setSelectedGenreId] = useState("");
-    const [selectedMovieId, setSelectedMovieId] = useState("");
     const [reviews, setReviews] = useState([]);
+    const [selectedMovieId, setSelectedMovieId] = useState("");
     const [content, setContent] = useState("");
     const [rating, setRating] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -14,43 +12,26 @@ const ReviewPage = ({ userId: propUserId }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const userId = propUserId || storedUser?.id;
 
-    // 장르 목록 불러오기
+    // 영화 목록 및 리뷰 불러오기
     useEffect(() => {
-        fetch("/api/genres")
+        fetch("/api/movies")
             .then(res => res.json())
             .then(data => {
-                setGenres(data);
-                console.log("🎬 전체 장르 목록:", data);
+                setMovies(data);
+                console.log("🎬 전체 영화 목록:", data);
             })
-            .catch(err => {
-                console.error("장르 목록 로딩 실패:", err);
-            });
+            .catch(err => console.error("영화 목록 로딩 실패:", err));
 
         if (userId) {
             fetchReviews(userId);
         }
     }, [userId]);
 
-    // 특정 장르의 영화 불러오기
-    const handleGenreChange = (genreId) => {
-        setSelectedGenreId(genreId);
-        setSelectedMovieId(""); // 영화 선택 초기화
-
-        fetch(`/api/movies/genre/${genreId}`)
-            .then(res => res.json())
-            .then(data => {
-                setMovies(data);
-                console.log("🎬 해당 장르 영화 목록:", data);
-            })
-            .catch(err => console.error("영화 목록 로딩 실패:", err));
-    };
-
     const fetchReviews = async (uid) => {
         try {
             const res = await fetch(`/api/reviews/users/${uid}`);
             if (res.ok) {
                 const data = await res.json();
-                console.log("📥 리뷰 조회 성공:", data);
                 setReviews(data);
             }
         } catch (err) {
@@ -86,7 +67,6 @@ const ReviewPage = ({ userId: propUserId }) => {
                 setContent("");
                 setRating("");
                 setSelectedMovieId("");
-                setSelectedGenreId("");
                 setShowModal(false);
                 fetchReviews(userId);
             } else {
@@ -101,7 +81,7 @@ const ReviewPage = ({ userId: propUserId }) => {
     return (
         <div className="review-container">
             <h2>📝 영화 리뷰</h2>
-            <p>장르를 선택하고 해당 영화에 대한 리뷰를 남겨보세요.</p>
+            <p>전체 영화 중 원하는 영화에 대한 리뷰를 남겨보세요.</p>
 
             <div className="review-list">
                 {reviews.length === 0 ? (
@@ -131,20 +111,8 @@ const ReviewPage = ({ userId: propUserId }) => {
 
                         <select
                             className="form-field"
-                            value={selectedGenreId}
-                            onChange={(e) => handleGenreChange(e.target.value)}
-                        >
-                            <option value="">장르를 선택하세요</option>
-                            {genres.map((g) => (
-                                <option key={g.id} value={g.id}>{g.name}</option>
-                            ))}
-                        </select>
-
-                        <select
-                            className="form-field"
                             value={selectedMovieId}
                             onChange={(e) => setSelectedMovieId(e.target.value)}
-                            disabled={!movies.length}
                         >
                             <option value="">영화를 선택하세요</option>
                             {movies.map((movie) => (
