@@ -156,8 +156,9 @@ const handleGenreSave = async () => {
                                     type="checkbox"
                                     value={genre}
                                     checked={selectedGenres.includes(genreOptions.indexOf(genre) + 1)}
-                                    disabled={!genreEditing}
+                                    readOnly={!genreEditing}
                                     onChange={(e) => {
+                                        if (!genreEditing) return;
                                         const id = genreOptions.indexOf(genre) + 1;
                                         if (e.target.checked) {
                                             setSelectedGenres(prev => [...prev, id]);
