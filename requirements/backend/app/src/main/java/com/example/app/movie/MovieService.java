@@ -1,12 +1,19 @@
 package com.example.app.movie;
 
+import com.example.app.genre.Genre;
 import com.example.app.movie.dto.MovieDetailResponseDto;
+import com.example.app.movie.dto.MovieSummaryResponseDto;
 import com.example.app.review.dto.ReviewSummaryDto;
+import com.example.app.user.User;
+import com.example.app.user.UserRepository;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -14,6 +21,7 @@ import java.util.stream.Collectors;
 public class MovieService {
 
     private final MovieRepository movieRepository;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     public MovieDetailResponseDto getMovieDetail(Long movieId) {
@@ -33,5 +41,21 @@ public class MovieService {
                         .map(ReviewSummaryDto::fromEntity)
                         .collect(Collectors.toList()))
                 .build();
+    }
+
+    public List<MovieSummaryResponseDto> getRecommendedMovies(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
+
+        Set<Genre> preferredGenres = user.getPreferredGenres();
+        if (preferredGenres == null || preferredGenres.isEmpty()) {
+            throw new EntityNotFoundException("User has no preferred genres");
+        }
+
+        List<Movie> movies = movieRepository.findByGenresIn(preferredGenres);
+
+        return movies.stream()
+                .map(MovieSummaryResponseDto::fromEntity)
+                .collect(Collectors.toList());
     }
 }
