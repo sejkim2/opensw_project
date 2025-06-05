@@ -12,20 +12,17 @@ const ReviewPage = ({ userId: propUserId }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const userId = propUserId || storedUser?.id;
 
+    // 영화 목록 및 리뷰 불러오기
     useEffect(() => {
-        if (userId) {
-            // 선호 장르 기반 영화 목록 불러오기
-            fetch(`/api/movies/recommended/${userId}`)
-                .then(res => res.json())
-                .then(data => {
-                    setMovies(data);
-                    console.log("🎬 추천 영화 목록:", data);
-                })
-                .catch(err => {
-                    console.error("추천 영화 목록 로딩 실패:", err);
-                });
+        fetch("/api/movies")
+            .then(res => res.json())
+            .then(data => {
+                setMovies(data);
+                console.log("🎬 전체 영화 목록:", data);
+            })
+            .catch(err => console.error("영화 목록 로딩 실패:", err));
 
-            // 기존 리뷰 불러오기
+        if (userId) {
             fetchReviews(userId);
         }
     }, [userId]);
@@ -35,19 +32,16 @@ const ReviewPage = ({ userId: propUserId }) => {
             const res = await fetch(`/api/reviews/users/${uid}`);
             if (res.ok) {
                 const data = await res.json();
-                console.log("📥 리뷰 조회 성공:", data);
                 setReviews(data);
-            } else {
-                console.warn("리뷰 불러오기 실패");
             }
         } catch (err) {
-            console.error("리뷰 로딩 중 오류:", err);
+            console.error("리뷰 불러오기 실패:", err);
         }
     };
 
     const handleSubmit = async () => {
         if (!userId || !selectedMovieId || !content.trim() || rating === "") {
-            alert("모든 정보를 정확히 입력하세요!");
+            alert("모든 정보를 입력하세요.");
             return;
         }
 
@@ -58,19 +52,15 @@ const ReviewPage = ({ userId: propUserId }) => {
             rating: parseFloat(rating),
         };
 
-        console.log("📤 리뷰 전송 데이터:", review);
-
         try {
             const res = await fetch("/api/reviews", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
+                headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(review),
             });
 
             const result = await res.json();
-            console.log("📥 서버 응답 데이터:", result);
+            console.log("📥 서버 응답:", result);
 
             if (res.status === 201) {
                 alert("리뷰가 등록되었습니다!");
@@ -78,24 +68,24 @@ const ReviewPage = ({ userId: propUserId }) => {
                 setRating("");
                 setSelectedMovieId("");
                 setShowModal(false);
-                fetchReviews(userId); 
+                fetchReviews(userId);
             } else {
                 alert(`리뷰 등록 실패: ${result.message}`);
             }
         } catch (err) {
-            console.error("리뷰 등록 중 오류:", err);
-            alert("서버 오류로 리뷰 등록에 실패했습니다.");
+            console.error("리뷰 등록 오류:", err);
+            alert("서버 오류 발생");
         }
     };
 
     return (
         <div className="review-container">
             <h2>📝 영화 리뷰</h2>
-            <p>선호 장르 기반 추천 영화에 대한 리뷰를 작성해보세요.</p>
+            <p>전체 영화 중 원하는 영화에 대한 리뷰를 남겨보세요.</p>
 
             <div className="review-list">
                 {reviews.length === 0 ? (
-                    <p>아직 등록된 리뷰가 없습니다.</p>
+                    <p>등록된 리뷰가 없습니다.</p>
                 ) : (
                     reviews.map((r) => (
                         <div key={r.id} className="review-item">
@@ -112,9 +102,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                 )}
             </div>
 
-            <button onClick={() => setShowModal(true)} className="open-form-btn">
-                ✍ 리뷰 작성하기
-            </button>
+            <button onClick={() => setShowModal(true)} className="open-form-btn">✍ 리뷰 작성하기</button>
 
             {showModal && (
                 <div className="modal-overlay-review" onClick={() => setShowModal(false)}>
@@ -128,9 +116,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                         >
                             <option value="">영화를 선택하세요</option>
                             {movies.map((movie) => (
-                                <option key={movie.id} value={movie.id}>
-                                    {movie.title}
-                                </option>
+                                <option key={movie.id} value={movie.id}>{movie.title}</option>
                             ))}
                         </select>
 
@@ -148,12 +134,8 @@ const ReviewPage = ({ userId: propUserId }) => {
                         >
                             <option value="">평점을 선택하세요</option>
                             {[...Array(11)].map((_, i) => {
-                                const value = (i * 0.5).toFixed(1);
-                                return (
-                                    <option key={value} value={value}>
-                                        {value}
-                                    </option>
-                                );
+                                const val = (i * 0.5).toFixed(1);
+                                return <option key={val} value={val}>{val}</option>;
                             })}
                         </select>
 
