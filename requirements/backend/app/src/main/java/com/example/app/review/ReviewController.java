@@ -2,16 +2,17 @@ package com.example.app.review;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.app.review.dto.ReviewRequestDto;
 import com.example.app.review.dto.ReviewResponseDto;
+import com.example.app.review.dto.UserReviewDto;
 
 import jakarta.persistence.EntityNotFoundException;
-
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,5 +39,12 @@ public class ReviewController {
         return new ErrorResponse(status, error, message, "/api/reviews");
     }
 
-    record ErrorResponse(int status, String error, String message, String path) {}
+    @GetMapping("users/{userId}")
+    public ResponseEntity<List<UserReviewDto>> getReviewsByUserId(@PathVariable Long userId) {
+        List<UserReviewDto> reviews = reviewService.getReviewsByUserId(userId);
+        return ResponseEntity.ok(reviews); // reviews가 비어도 200 OK
+    }
+
+    record ErrorResponse(int status, String error, String message, String path) {
+    }
 }

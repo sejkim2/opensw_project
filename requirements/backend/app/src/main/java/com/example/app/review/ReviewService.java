@@ -1,17 +1,23 @@
 package com.example.app.review;
 
-import com.example.app.review.Review;
-import com.example.app.review.ReviewRepository;
 import com.example.app.review.dto.ReviewRequestDto;
 import com.example.app.review.dto.ReviewResponseDto;
+import com.example.app.review.dto.UserReviewDto;
 import com.example.app.user.User;
 import com.example.app.user.UserRepository;
 import com.example.app.movie.Movie;
 import com.example.app.movie.MovieRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -65,5 +71,16 @@ public class ReviewService {
                 .rating(saved.getRating())
                 .createdAt(saved.getCreatedAt())
                 .build();
+    }
+
+    public List<UserReviewDto> getReviewsByUserId(Long userId) {
+        if (!userRepository.existsById(userId)) {
+            throw new ResponseStatusException(NOT_FOUND, "User not found");
+        }
+
+        List<Review> reviews = reviewRepository.findByUserId(userId);
+        return reviews.stream()
+                .map(UserReviewDto::fromEntity)
+                .collect(Collectors.toList());
     }
 }
