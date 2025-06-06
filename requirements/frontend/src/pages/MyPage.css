@@ -23,12 +23,14 @@
   background-color: rgba(255, 255, 255, 0.06);
   padding: 40px;
   border-radius: 16px;
-  width: 500px;
+  width: 700px;  
+  max-width: 90vw; 
   text-align: center;
   color: white;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  margin-top: 40px;  /* ✅ 메뉴바와 간격 확보 */
+  margin-top: 40px;
 }
+
 
 
 .mypage-card h5 {
