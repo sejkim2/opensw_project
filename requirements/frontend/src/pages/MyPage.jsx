@@ -25,7 +25,11 @@ const MyPage = () => {
     const [selectedGenres, setSelectedGenres] = useState([]);
     const [recentReviews, setRecentReviews] = useState([]);
 
-const handleGenreSave = async () => {
+    const handleReviewClick = (movieId) => {
+        navigate(`/detail/${movieId}`);
+    };
+
+    const handleGenreSave = async () => {
     if (selectedGenres.length === 0) {
         alert("선호하는 장르는 최소 1개 이상 선택해야 합니다.");
         return;
@@ -191,7 +195,7 @@ const handleGenreSave = async () => {
 
                 <div className="review-section">
                     <div className="review-title-row">
-                        <h3>최신 작성한 리뷰 목록 <span style={{ color: 'aquamarine' }}>{recentReviews.length}</span></h3>
+                        <h3>최근 작성한 리뷰 목록, <span style={{ color: 'aquamarine' }}>{recentReviews.length}</span> 개 </h3>
                     </div>
 
                     {recentReviews.length === 0 ? (
@@ -200,13 +204,15 @@ const handleGenreSave = async () => {
                         </p>
                     ) : (
                         recentReviews.map((review) => (
-                            <div key={review.reviewId} className="review-summary">
+                            <div key={review.reviewId} className="review-summary"
+                            onClick={() => handleReviewClick(review.movieId)}
+                            style={{ cursor: 'pointer' }}>
                                 <div className="review-date">
                                     {new Date(review.createdAt).toLocaleDateString()}
                                 </div>
                                 <div className="review-content-preview">
-                                    {review.content.length > 50
-                                        ? review.content.slice(0, 50) + '...'
+                                    {review.content.length > 20
+                                        ? review.content.slice(0, 20) + '...'
                                         : review.content}
                                 </div>
                             </div>
