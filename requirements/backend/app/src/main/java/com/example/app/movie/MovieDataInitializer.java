@@ -32,7 +32,7 @@ public class MovieDataInitializer {
         Genre thriller = findByName(allGenres, "Thriller");
         Genre other = findByName(allGenres, "Other");
 
-        List<Movie> movies = Arrays.asList(
+        List<Movie> movies = Arrays.asList( 
                 Movie.builder()
                         .title("극한직업")
                         .description("낮에는 치킨장사! 밤에는 잠복근무!\n" + //
@@ -167,6 +167,96 @@ public class MovieDataInitializer {
                         .imageUrl("/images/movie10.jpeg")
                         .averageRating(0.0)
                         .genres(new HashSet<>(List.of(fantasy)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("하울의 움직이는 성")
+                        .description("19세기 말의 마법과 과학이 공존하는 어느 세계. 해터 모자 공방의 주인의 장녀인 18살 소녀 소피는 길을 가던 중 우연히 마법사 하울을 만난다.\n" + //
+                                                                "\n" + //
+                                                                "그러나 그날 밤, 황야의 마녀라 불리는 의문의 여성에게 노파가 되는 저주를 받고 황야로 여행을 떠난다. 그리고 그때 만난 하울의 성에 도착해 그 곳에서 여러 일을 도우며 지내게 되는데...")
+                        .imageUrl("/images/movie11.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(animation, fantasy, romance)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("인사이드 아웃 2")
+                        .description("디즈니·픽사의 대표작 <인사이드 아웃> 새로운 감정과 함께 돌아오다! 13살이 된 라일리의 행복을 위해 매일 바쁘게 머릿속 감정 컨트롤 본부를 운영하는 ‘기쁨’, ‘슬픔’, ‘버럭’, ‘까칠’, ‘소심’. 그러던 어느 날, 낯선 감정인 ‘불안’, ‘당황’, ‘따분’, ‘부럽’이가 본부에 등장하고, 언제나 최악의 상황을 대비하며 제멋대로인 ‘불안’이와 기존 감정들은 계속 충돌한다. 결국 새로운 감정들에 의해 본부에서 쫓겨나게 된 기존 감정들은 다시 본부로 돌아가기 위해 위험천만한 모험을 시작하는데… 2024년, 전 세계를 공감으로 물들인 유쾌한 상상이 다시 시작된다!")
+                        .imageUrl("/images/movie12.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(animation)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("키싱 부스 2")
+                        .description("하버드간 완벽한 롱디 남친에게 미모의 여사친이, 졸업반 엘에게는 섹시 전학생이 나타난다. 키싱부스가 맺어준 이 커플의 장거리 연애에는 달콤한 장애물이 너무 많은데… 아찔하게 돌아온 키싱부스2, 영업 개시!")
+                        .imageUrl("/images/movie13.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(romance, comedy)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("나우 유 씨 미 : 마술 사기단")
+                        .description("1년 전, 길거리에서 소소한 공연이나 하는 정도였던 무명의 마술사 4명. 그들은 누군가가 보낸 초대장에 의해 한 자리에 모이게 되고 이후 '포 호스맨 (Four Horsemen)' 이란 마술팀을 결성한다. 그리고 라스베가스 마술쇼에서 파리은행의 비자금을 통째로 털어버리는 쇼를 멋지게 성공시키면서 순식간에 세계적인 톱스타가 된다. 하지만 제아무리 마술이라지만 은행을 터는 행위는 엄연한 범죄. 네 사람은 곧 경찰에 체포된다. FBI 요원 딜런 로즈는 마술로 은행을 털어버렸다는 황당한 강도사건소식을 듣고는 황당함을 금치 못했다. 그래서 문제의 범죄자들을 잡아들여 취조를 했지만 그들은 모든건 마술이라는 말만 할 뿐, 결코 범행동기에 대해서 말하는 법은 없었다. 게다가 이들이 직접적으로 은행을 털었다는 확실한 증거도 없는 상황. 딜런은 결국 그들을 증거불충분으로 풀어주는수밖에 없었고 그때부터 반드시 그들을 잡아들이겠다고 결심하며 포 호스맨과의 전쟁을 선포했고 마술트릭을 파헤치는 마술 비판가 태디어스 브래들리를 섭외한다. 하지만 포 호스맨은 경찰들을 비웃기라도 하듯 점점 대담한 마술행각을 펼쳤고 딜런을 비롯한 FBI 역시 이런 그들을 잡아들이기 위해 발바닥에 불이 나도록 뛰어나기 시작한다. 과연, 누구의 승리로 끝날까?")
+                        .imageUrl("/images/movie14.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(action, thriller, fantasy, comedy)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("어바웃 타임")
+                        .description("모태솔로 팀(돔놀 글리슨)은 성인이 된 날, 아버지(빌 나이)로부터 놀랄만한 가문의 비밀을 듣게 된다. 바로 시간을 되돌릴 수 있는 능력이 있다는 것! 그것이 비록 히틀러를 죽이거나 여신과 뜨거운 사랑을 할 수는 없지만, 여자친구는 만들어 줄 순 있으리.. 꿈을 위해 런던으로 간 팀은 우연히 만난 사랑스러운 여인 메리에게 첫눈에 반하게 된다. 그녀의 사랑을 얻기 위해 자신의 특별한 능력을 마음껏 발휘하는 팀. 어설픈 대시, 어색한 웃음은 리와인드! 뜨거웠던 밤은 더욱 뜨겁게 리플레이! 꿈에 그리던 그녀와 매일매일 최고의 순간을 보낸다. 하지만 그와 그녀의 사랑이 완벽해질수록 팀을 둘러싼 주변 상황들은 미묘하게 엇갈리고, 예상치 못한 사건들이 여기저기 나타나기 시작하는데… 어떠한 순간을 다시 살게 된다면, 과연 완벽한 사랑을 이룰 수 있을까?")
+                        .imageUrl("/images/movie15.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(romance, comedy)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("노트북")
+                        .description("[영혼을 바쳐 한 사람을 사랑했고, 그것만으로도 성공한 인생입니다] 노아(라이언 고슬링)는 여름 휴가를 맞아 잠시 시골로 내려온 밝고 아름다운 부잣집 아가씨 앨리(레이첼 맥아담스)에게 한 눈에 반한다. 서로에게 빠르게 빠져들어 뜨거운 여름을 보내는 두 사람. 그러나 너무나 다른 가정 환경으로 인해 강렬했던 노아와 앨리의 첫사랑은 이별을 맞는다. 시간이 흐른 후, 여전히 서로를 가슴속에 묻은 채 살던 두 사람은 우연히 재회하게 된다. 그러나 앨리의 곁엔 결혼을 약속한 완벽한 약혼자가 있는데...")
+                        .imageUrl("/images/movie16.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(drama, romance)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("레미제라블")
+                        .description("빵 한 조각을 훔친 죄로 19년의 감옥살이를 한 장발장(휴 잭맨). 전과자라는 이유만으로 모두의 박해를 받던 장발장은 우연히 만난 신부의 손길 아래 구원을 받고 새로운 삶을 결심한다. 정체를 숨기고 마들렌이라는 새 이름으로 가난한 이들을 도우며 지내던 장발장은 운명의 여인, 판틴(앤 해서웨이)과 마주치고, 죽음을 눈앞에 둔 판틴은 자신의 유일한 희망인 딸, 코제트(아만다 사이프리드)를 장발장에게 부탁한다. 그러나 코제트를 만나기도 전에 경감 자베르(러셀 크로우)는 장발장의 진짜 정체를 알아차리고, 오래된 누명으로 다시 체포된 장발장은 코제트를 찾아 탈옥을 감행하는데…")
+                        .imageUrl("/images/movie17.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(drama)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("무파사 : 라이온 킹")
+                        .description("외로운 고아에서 전설적인 왕으로 거듭난 ‘무파사’의 숨겨진 이야기가 베일을 벗는다! 길을 잃고 혼자가 된 새끼 사자 ‘무파사’는 광활한 야생을 떠돌던 중 왕의 혈통이자 예정된 후계자 ‘타카(스카)’와 우연히 만나게 된다. 마치 친형제처럼 끈끈한 우애를 나누며 함께 자란 ‘무파사’와 ‘타카’는 운명을 개척하기 위해 거대한 여정을 함께 떠난다. 한 치 앞을 알 수 없는 적들의 위협 속에서 두 형제의 끈끈했던 유대에 금이 가기 시작하고 예상치 못한 위기까지 맞닥뜨리게 되는데…")
+                        .imageUrl("/images/movie18.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(animation)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("야당")
+                        .description("대한민국 마약 수사의 뒷거래 모든 것은 야당으로부터 시작된다! 누명을 쓰고 교도소에 수감된 이강수(강하늘)는 검사 구관희(유해진)로부터 감형을 조건으로 야당을 제안받는다. 강수는 관희의 야당이 돼 마약 수사를 뒤흔들기 시작하고, 출세에 대한 야심이 가득한 관희는 굵직한 실적을 올려 탄탄대로의 승진을 거듭한다. 한편, 마약수사대 형사 오상재(박해준)는 수사 과정에서 강수의 야당질로 번번이 허탕을 치고, 끈질긴 집념으로 강수와 관희의 관계를 파고든다. 마약판을 설계하는 브로커 강수, 더 높은 곳에 오르려는 관희, 마약 범죄 소탕에 모든 것을 건 상재. 세 사람은 각자 다른 이해관계로 얽히기 시작하는데…")
+                        .imageUrl("/images/movie19.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(action)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("해리포터와 마법사의 돌")
+                        .description("친척집에서 구박받는 생활을 하던 해리는 11살 생일을 앞두고 호그와트 마법학교로부터 입학초대장을 받고 자신이 마법사라는 사실을 알게 된다. 해리는 호그와트 마법학교로 가는 열차에서 친구 론, 헤르미온느를 사귀고 마법, 신비, 모험으로 가득한 학교생활을 시작한다.")
+                        .imageUrl("/images/movie20.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(fantasy)))
+                        .build(),
+
+                        Movie.builder()
+                        .title("위대한 쇼맨")
+                        .description("쇼 비즈니스의 창시자이자, 꿈의 무대로 전세계를 매료시킨 남자 ‘바넘’의 이야기에서 영감을 받아 탄생한 오리지널 뮤지컬 영화 <위대한 쇼맨>. <레미제라블> 이후 다시 뮤지컬 영화로 돌아온 휴 잭맨부터 잭 에프론, 미셸 윌리엄스, 레베카 퍼거슨, 젠다야까지 할리우드 최고의 배우들이 합류해 환상적인 앙상블을 선보인다. 여기에 <미녀와 야수> 제작진과 <라라랜드> 작사팀의 합류로 더욱 풍성해진 비주얼과 스토리, 음악까지 선보일 <위대한 쇼맨>은 ‘우리는 누구나 특별하다’는 메시지로 관객들에게 재미는 물론, 감동까지 선사할 것이다. THIS IS ME! 우리는 누구나 특별하다!")
+                        .imageUrl("/images/movie21.jpeg")
+                        .averageRating(0.0)
+                        .genres(new HashSet<>(List.of(drama)))
                         .build()
         );
 
