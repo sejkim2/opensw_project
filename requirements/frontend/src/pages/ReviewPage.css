@@ -188,3 +188,24 @@ textarea.form-field {
     line-height: 1.5;
     margin-top: 8px;
 }
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    margin-bottom: 20px;
+}
+
+.review-page-content {
+    color: #222;
+    font-size: 0.95rem;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    margin-top: 8px;
+}
+
+.review-header-area {
+    margin-top: 80px; 
+}

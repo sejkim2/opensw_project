@@ -39,17 +39,18 @@ const CheckboxOption = (props) => {
     );
 };
 
-// ✅ React Select 스타일
 const customStyles = {
     control: (provided) => ({
         ...provided,
         width: "100%",
         padding: "2px",
-        height: "40px", // 높이 통일
+        height: "auto", 
         borderRadius: "4px",
         borderColor: "#ccc",
         boxShadow: "none",
         fontSize: "14px",
+        flexWrap: "wrap",
+        alignItems: "flex-start"
     }),
     option: (provided) => ({
         ...provided,

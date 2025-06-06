@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './ReviewPage.css';
+import { useNavigate } from "react-router-dom";
+import './MainPage.css';
 
 const ReviewPage = ({ userId: propUserId }) => {
     const [movies, setMovies] = useState([]);
@@ -12,7 +14,6 @@ const ReviewPage = ({ userId: propUserId }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     const userId = propUserId || storedUser?.id;
 
-    // 영화 목록 및 리뷰 불러오기
     useEffect(() => {
         fetch("/api/movies")
             .then(res => res.json())
@@ -78,10 +79,24 @@ const ReviewPage = ({ userId: propUserId }) => {
         }
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className="review-container">
-            <h2>📝 영화 리뷰</h2>
-            <p>전체 영화 중 원하는 영화에 대한 리뷰를 남겨보세요.</p>
+            <nav className="navbar">
+                <h2 className="logo" onClick={() => navigate('/main')} style={{ cursor: 'pointer' }}>
+                    🎬 리뷰보다
+                </h2>
+                <ul className="menu">
+                    <li onClick={() => navigate('/mypage')}>마이페이지</li>
+                    <li onClick={() => navigate('/')}>로그아웃</li>
+                </ul>
+            </nav>
+
+            <div className="review-header-area">
+                <h2>📝 영화 리뷰</h2>
+                <p>전체 영화 중 원하는 영화에 대한 리뷰를 남겨보세요.</p>
+            </div>
 
             <div className="review-list">
                 {reviews.length === 0 ? (
@@ -96,7 +111,7 @@ const ReviewPage = ({ userId: propUserId }) => {
                                 </span>
                             </div>
                             <div className="rating">⭐ {r.rating}점</div>
-                            <div className="review-content">{r.content}</div>
+                            <div className="review-page-content">{r.content}</div>
                         </div>
                     ))
                 )}
