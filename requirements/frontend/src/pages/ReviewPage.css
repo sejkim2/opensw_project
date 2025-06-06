@@ -205,3 +205,7 @@ textarea.form-field {
     line-height: 1.5;
     margin-top: 8px;
 }
+
+.review-header-area {
+    margin-top: 80px; 
+}

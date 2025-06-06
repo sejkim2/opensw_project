@@ -93,8 +93,10 @@ const ReviewPage = ({ userId: propUserId }) => {
                 </ul>
             </nav>
 
-            <h2>📝 영화 리뷰</h2>
-            <p>전체 영화 중 원하는 영화에 대한 리뷰를 남겨보세요.</p>
+            <div className="review-header-area">
+                <h2>📝 영화 리뷰</h2>
+                <p>전체 영화 중 원하는 영화에 대한 리뷰를 남겨보세요.</p>
+            </div>
 
             <div className="review-list">
                 {reviews.length === 0 ? (
