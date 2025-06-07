@@ -100,7 +100,44 @@ make down
 
 ### 7. frontend 개발자 분들은 requirements/frontend/srcs 디렉토리에서, backend 개발자 분들은 requirements/backend/app 디렉토리에 본인의 코드를 구현하시면 됩니다.
 
-## 웹사이트 소개 [추가 예정]
+## 웹사이트 소개
+<img width="1244" alt="1" src="https://github.com/user-attachments/assets/621ac85b-7964-4565-bf1e-0b69d8444154" />
+
+**리뷰보다**  는 영화에 대한 리뷰를 남기고, 선호하는 장르 기반으로 추천 영화를 확인하며, 자신만의 영화 감상 기록을 쌓을 수 있는 웹 플랫폼입니다.
+
+<img width="449" alt="2" src="https://github.com/user-attachments/assets/2317ec3e-bcfc-4506-8c02-00a2cd23e461" />
+<img width="490" alt="5" src="https://github.com/user-attachments/assets/eabd07b4-2eb4-409f-b530-91e86eccc290" />
+
+**회원가입 후 로그인**  
+- 닉네임과 선호 장르를 설정하여 간편하게 회원가입  
+- 로그인 후 개인 맞춤 추천 및 리뷰 서비스 제공
+
+<img width="1589" alt="6" src="https://github.com/user-attachments/assets/169ef3aa-1935-4a9e-95b4-63879ff74281" />
+
+**메인페이지**   
+- 평점 기준 인기 영화 TOP 5 제공  
+- 회원의 선호 장르에 맞춘 추천 영화 제공
+
+<img width="644" alt="7" src="https://github.com/user-attachments/assets/ab8f2eb6-97a6-4aed-bad7-4ad23e547a5f" />
+<img width="815" alt="8" src="https://github.com/user-attachments/assets/7a44d3b1-3bf8-4a22-9ac0-f0d4a4b59829" />
+<img width="782" alt="9" src="https://github.com/user-attachments/assets/d8be2889-9fd2-484a-b711-85a4068f5cd3" />
+
+**영화 리뷰 작성**  
+- 영화에 대한 감상평과 별점을 남겨 나만의 리뷰 작성  
+- 작성한 리뷰는 전체 리뷰 목록과 마이페이지에서 확인 가능
+
+<img width="816" alt="11" src="https://github.com/user-attachments/assets/be4b2fd5-42a1-49a0-84ae-d7d51adc7253" />
+
+**마이페이지**  
+- 닉네임, 선호 장르 수정 가능  
+- 내가 작성한 최신 리뷰 3개 확인 가능  
+- 리뷰를 클릭하면 해당 영화 상세 페이지로 이동
+
+<img width="1584" alt="14" src="https://github.com/user-attachments/assets/36ef6660-6d70-42e8-918e-5e4f5d98b6e1" />
+
+**영화 상세 페이지**
+- 해당 영화의 정보 제공  
+- 내가 작성한 리뷰뿐 아니라 다른 사용자들의 리뷰도 함께 확인 가능
 
 ## 프로젝트 룰
 .env 파일에는 환경변수로 사용될 중요한 값들이 저장됩니다. 유출되면 안되기 때문에 .gitignore에 등록하여 커밋을 막았습니다. 각 서비스의 빌드 결과물인 실행 파일 역시 해당 서비스 디렉토리 내부에서 .gitignore로 등록하여 커밋을 막았습니다. 
