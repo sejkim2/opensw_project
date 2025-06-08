@@ -1,41 +1,151 @@
-## 웹사이트 소개
-<img width="1244" alt="1" src="https://github.com/user-attachments/assets/621ac85b-7964-4565-bf1e-0b69d8444154" />
+## 🎬 영화 리뷰 플랫폼 | 리뷰보다
 
-**리뷰보다**  는 영화에 대한 리뷰를 남기고, 선호하는 장르 기반으로 추천 영화를 확인하며, 자신만의 영화 감상 기록을 쌓을 수 있는 웹 플랫폼입니다.
+**리뷰보다**  는 선호하는 장르의 영화 리뷰를 자유롭게 공유하고, 추천 영화를 확인할 수 있는 웹 플랫폼입니다. 
 
-<img width="449" alt="2" src="https://github.com/user-attachments/assets/2317ec3e-bcfc-4506-8c02-00a2cd23e461" />
-<img width="490" alt="5" src="https://github.com/user-attachments/assets/eabd07b4-2eb4-409f-b530-91e86eccc290" />
+자신만의 영화 감상 기록을 쌓으며, 다양한 장르의 영화에 대한 의견을 나눌 수 있는 공간입니다.
 
-**회원가입 후 로그인**  
-- 닉네임과 선호 장르를 설정하여 간편하게 회원가입  
-- 로그인 후 개인 맞춤 추천 및 리뷰 서비스 제공
 
-<img width="1589" alt="6" src="https://github.com/user-attachments/assets/169ef3aa-1935-4a9e-95b4-63879ff74281" />
+![alt text](rm1.png)
 
-**메인페이지**   
-- 평점 기준 인기 영화 TOP 5 제공  
-- 회원의 선호 장르에 맞춘 추천 영화 제공
+<br>
 
-<img width="644" alt="7" src="https://github.com/user-attachments/assets/ab8f2eb6-97a6-4aed-bad7-4ad23e547a5f" />
-<img width="815" alt="8" src="https://github.com/user-attachments/assets/7a44d3b1-3bf8-4a22-9ac0-f0d4a4b59829" />
-<img width="782" alt="9" src="https://github.com/user-attachments/assets/d8be2889-9fd2-484a-b711-85a4068f5cd3" />
+### 📄 목차
 
-**영화 리뷰 작성**  
-- 영화에 대한 감상평과 별점을 남겨 나만의 리뷰 작성  
-- 작성한 리뷰는 전체 리뷰 목록과 마이페이지에서 확인 가능
+1. [개요](#1-개요)
+2. [주요기능 소개 및 설명](#2-주요기능-소개-및-설명)
+- 회원가입
+- 로그인
+- 영화 목록 보기
+- 영화 리뷰 관리
+- 영화 상세 보기
+- 회원 관리
+3. [페이지 소개](#3-페이지-소개)
+4. [기술스택](#4-기술-스택)
+5. [팀원](#5-팀원-소개)
 
-<img width="816" alt="11" src="https://github.com/user-attachments/assets/be4b2fd5-42a1-49a0-84ae-d7d51adc7253" />
+<br>
+<hr>
 
-**마이페이지**  
-- 닉네임, 선호 장르 수정 가능  
-- 내가 작성한 최신 리뷰 3개 확인 가능  
-- 리뷰를 클릭하면 해당 영화 상세 페이지로 이동
+### 1) 개요
 
-<img width="1584" alt="14" src="https://github.com/user-attachments/assets/36ef6660-6d70-42e8-918e-5e4f5d98b6e1" />
+-프로젝트 이름: 리뷰보다 
 
-**영화 상세 페이지**
-- 해당 영화의 정보 제공  
-- 내가 작성한 리뷰뿐 아니라 다른 사용자들의 리뷰도 함께 확인 가능
+-프로젝트 기간: 2025.05.10 ~ 2025.06.07
+
+-사용자들이 영화를 리뷰하고 서로의 평가를 공유하며 선호 장르 기반의 영화 추천과 인기 영화 정보를 제공받을 수 있는 플랫폼을 구축하는 것이 이번 프로젝트의 목표입니다.(본 프로젝트는 2025-1학기 오픈소스sw개론 수업에 기반을 두었습니다.)
+
+<hr>
+
+
+### 2) 주요기능 소개 및 설명
+
+**회원가입**: 
+- 닉네임,아이디,비밀번호,선호하는 장르를 기입합니다. 
+- 사용자 아이디를 확인하여 중복 회원 여부를 확인합니다.
+
+**로그인**: 
+- 아이디,비밀번호를 확인합니다. 
+- 존재하는 아이디 및 비밀번호인지 확인합니다.
+
+**영화 목록 보기**: 
+- 평점이 높은 영화를 인기영화로 게시하여 메인화면을 통해 가장 인기 있는 Top 5개의 영화를 보여줍니다.
+- 사용자가 선호하는 장르를 기준으로 메인화면을 통해 영화정보를 보여줍니다.
+
+**영화 리뷰 관리**: 
+- 영화는 평점, 리뷰, 장르를 가져 사용자는 리뷰를 작성하고 싶은 영화를 선택하여 리뷰를 등록할 수 있습니다. 
+- 영화 상세보기 화면을 통해 작성된 리뷰 전체 목록을 확인할 수 있습니다. 
+
+**영화 상세 보기**: 
+- 영화에 대한 설명을 확인할 수 있으며, 해당 영화에 모든 리뷰 조회가 가능합니다. 
+- 메인화면에서 영화를 클릭하거나 마이페이지에 등록된 리뷰 클릭시 상세보기 페이지를 확인할 수 있습니다.
+
+
+**회원 관리**: 
+- 회원은 작성한 리뷰 목록을 갖습니다.
+- 회원은 닉네임 수정이 가능합니다.
+- 회원은 선호하는 장르 수정이 가능합니다.
+
+<br>
+<hr>
+
+### 3) 페이지 소개
+
+#### 회원가입/로그인
+
+<div style="display: flex; gap: 10px;">
+  <img src="rm2.png" width="300"/>
+  <img src="rm3.png" width="300"/>
+</div>
+
+
+#### 메인페이지
+<div style="display: flex; gap: 10px;">
+  <img src="rm4.png" width="300"/>
+  <img src="rm5.png" width="300"/>
+</div>
+
+
+#### 리뷰 관리 페이지
+<div style="display: flex; gap: 10px;">
+  <img src="rm6.png" width="300"/>
+  <img src="rm7.png" width="300"/>
+</div>
+
+#### 회원 관리 페이지
+
+<div style="display: flex; gap: 10px;">
+  <img src="rm8.png" width="300"/>
+  <img src="rm9.png" width="300"/>
+  <img src="rm10.png" width="300"/>
+</div>
+
+
+#### 영화 상세보기 페이지
+<div style="display: flex; gap: 10px;">
+  <img src="rm11.png" width="300"/>
+  <img src="rm12.png" width="300"/>
+</div>
+
+<br>
+<hr>
+
+
+### 4) 기술 스택
+
+#### 프론트엔드
+<p>
+  <img src="https://img.shields.io/badge/React-61DAFB?style=flat&logo=react&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white"/>
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"/>
+
+</p>
+
+벡엔드
+
+<p>
+  <img src="https://img.shields.io/badge/Java-007396?style=flat&logo=java&logoColor=white"/>
+  <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat&logo=spring&logoColor=white"/>
+</p>
+
+
+
+
+<hr>
+
+### 5) 팀원 소개
+
+| 이름   | 역할        | GitHub |
+|--------|-------------|--------|
+| 김세진 | 백엔드  | [@sejkim2](https://github.com/sejkim2) |
+| 김영민 | 백엔드      | [@youngmin-OS](https://github.com/youngmin-OS) |
+| 김하연 | 프론트엔드    | [@hayeon00](https://github.com/hayeon00) |
+| 황하은 | 프론트엔드    | [@haeun0529](https://github.com/haeun0529) |
+
+<br>
+<hr>
+
+<br>
+<br>
 
 ## Docker 사용 매뉴얼
 docker는 어떤 환경에서도 실행 가능한 프로그램을 패키징 하는 기술 입니다.
