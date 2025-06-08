@@ -73,37 +73,37 @@
 #### 회원가입/로그인
 
 <div style="display: flex; gap: 10px;">
-  <img src="rm2.png" width="600"/>
-  <img src="rm3.png" width="600"/>
+  <img src="rm2.png"/>
+  <img src="rm3.png"/>
 </div>
 
 
 #### 메인페이지
 <div style="display: flex; gap: 10px;">
-  <img src="rm4.png" width="600"/>
-  <img src="rm5.png" width="600"/>
+  <img src="rm4.png"/>
+  <img src="rm5.png"/>
 </div>
 
 
 #### 리뷰 관리 페이지
 <div style="display: flex; gap: 10px;">
-  <img src="rm6.png" width="600"/>
-  <img src="rm7.png" width="600"/>
+  <img src="rm6.png"/>
+  <img src="rm7.png"/>
 </div>
 
 #### 회원 관리 페이지
 
 <div style="display: flex; gap: 10px;">
-  <img src="rm8.png" width="600"/>
-  <img src="rm9.png" width="600"/>
-  <img src="rm10.png" width="600"/>
+  <img src="rm8.png"/>
+  <img src="rm9.png"/>
+  <img src="rm10.png"/>
 </div>
 
 
 #### 영화 상세보기 페이지
 <div style="display: flex; gap: 10px;">
-  <img src="rm11.png" width="600"/>
-  <img src="rm12.png" width="600"/>
+  <img src="rm11.png"/>
+  <img src="rm12.png"/>
 </div>
 
 <br>
